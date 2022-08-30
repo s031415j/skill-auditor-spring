@@ -9,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class UserDTO {
+public class AppUserDTO {
 
     public final static String ID = "id";
     public final static String FIRST_NAME = "first name";

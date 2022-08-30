@@ -3,7 +3,6 @@ package com.example.identity.repo;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
@@ -25,4 +24,5 @@ public class JobRoleJpa {
     public String toString(){
         return role;
     }
+
 }

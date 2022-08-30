@@ -1,10 +1,11 @@
 package com.example.identity.controller;
 
-import com.example.identity.service.DTO.UserDTO;
+import com.example.identity.service.DTO.AppUserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Component
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
@@ -40,14 +42,14 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user
-    public String generateToken(UserDTO userDetails) {
+    public String generateToken(AppUserDTO userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(UserDTO.USERNAME,userDetails.getUsername());
-        claims.put(UserDTO.PASSWORD,userDetails.getPassword());
-        claims.put(UserDTO.JOB_ROLE,userDetails.getJobRole());
-        claims.put(UserDTO.ID,userDetails.getId());
-        claims.put(UserDTO.FIRST_NAME,userDetails.getFirstName());
-        claims.put(UserDTO.SURNAME,userDetails.getSurname());
+        claims.put(AppUserDTO.USERNAME,userDetails.getUsername());
+        claims.put(AppUserDTO.PASSWORD,userDetails.getPassword());
+        claims.put(AppUserDTO.JOB_ROLE,userDetails.getJobRole());
+        claims.put(AppUserDTO.ID,userDetails.getId());
+        claims.put(AppUserDTO.FIRST_NAME,userDetails.getFirstName());
+        claims.put(AppUserDTO.SURNAME,userDetails.getSurname());
         return tokenFactory(claims, userDetails.getUsername());
     }
 
@@ -59,16 +61,16 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, String username) {
-        final String USERNAME = getListOfClaimsFromToken(token).get(UserDTO.USERNAME).toString();
+        final String USERNAME = getListOfClaimsFromToken(token).get(AppUserDTO.USERNAME).toString();
         return (USERNAME.equals(username) && !isTokenExpired(token));
     }
 
     public String getIDFromToken(String token) {
-        return getListOfClaimsFromToken(token).get(UserDTO.ID).toString();
+        return getListOfClaimsFromToken(token).get(AppUserDTO.ID).toString();
     }
 
     public String getRoleFromToken(String token) {
-        return getListOfClaimsFromToken(token).get(UserDTO.JOB_ROLE).toString();
+        return getListOfClaimsFromToken(token).get(AppUserDTO.JOB_ROLE).toString();
     }
 
     private Claims getListOfClaimsFromToken(String token){

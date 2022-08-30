@@ -1,9 +1,9 @@
 package com.example.identity.service;
 
 import com.example.identity.controller.INFUserService;
+import com.example.identity.repo.AppUserJpa;
 import com.example.identity.repo.INFUserRepository;
-import com.example.identity.repo.UserJpa;
-import com.example.identity.service.DTO.UserDTO;
+import com.example.identity.service.DTO.AppUserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,13 @@ public class UserService implements INFUserService {
     private INFUserRepository userRepository;
 
     @Override
-    public Optional<UserDTO> authenticate(String username, String password) {
-        Optional<UserJpa> result = userRepository.findUserByUsernameAndPassword(username, password);
+    public Optional<AppUserDTO> authenticate(String username, String password) {
+        Optional<AppUserJpa> result = userRepository.findUserByUsernameAndPassword(username, password);
         return result.map(this::convertToDTO);
     }
 
-    private UserDTO convertToDTO(UserJpa user){
-        return new UserDTO(user.getUserUUID(),
+    private AppUserDTO convertToDTO(AppUserJpa user){
+        return new AppUserDTO(user.getUserUUID(),
                 user.getUserName(),
                 user.getPassword(),
                 user.getFirstName(),

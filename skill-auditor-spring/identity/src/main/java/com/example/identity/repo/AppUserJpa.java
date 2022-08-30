@@ -3,27 +3,18 @@ package com.example.identity.repo;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
-@Table(name = "user")
+@Entity(name = "app_user")
+@Table(name = "app_user")
 @Getter
 @Setter
-public class UserJpa {
+public class AppUserJpa {
 
     @Id
     @Column(name="id")
     private String userUUID;
-
-    @NotNull
-    @Column(name = "username")
-    private String userName;
-
-    @NotNull
-    @Column(name = "password")
-    private String password;
 
     @NotNull
     @Column(name = "first_name")
@@ -33,6 +24,14 @@ public class UserJpa {
     @Column(name = "surname")
     private String surname;
 
+    @NotNull
+    @Column(name = "username")
+    private String userName;
+
+    @NotNull
+    @Column(name = "password")
+    private String password;
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="job_role_id")
     private JobRoleJpa jobRole;
@@ -40,4 +39,5 @@ public class UserJpa {
     public String toString(){
         return String.format("%s, %s, %s, %s %s" , userUUID, userName, password, jobRole);
     }
+
 }

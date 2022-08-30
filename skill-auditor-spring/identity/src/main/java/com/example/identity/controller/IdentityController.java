@@ -1,6 +1,6 @@
 package com.example.identity.controller;
 
-import com.example.identity.service.DTO.UserDTO;
+import com.example.identity.service.DTO.AppUserDTO;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class IdentityController {
 
     @PostMapping("/validate")
     public ResponseEntity<?> validate(@RequestBody UserDetails command){
-        Optional<UserDTO> result = userService.authenticate(command.getUsername(), command.getPassword());
+        Optional<AppUserDTO> result = userService.authenticate(command.getUsername(), command.getPassword());
         if(result.isPresent()){
             final String token = jwtTokenUtil.generateToken(result.get());
             return ResponseEntity.ok(token);
