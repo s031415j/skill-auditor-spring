@@ -1,6 +1,7 @@
 package com.example.skillsauditor.user.infrastructure.staff;
 
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffRepository;
+import com.example.skillsauditor.user.infrastructure.staff.interfaces.CrudStaffRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
