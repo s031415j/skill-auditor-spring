@@ -1,4 +1,4 @@
-package com.example.skillsauditor.user.application.manager.commands;
+package com.example.skillsauditor.user.application.manager.commands.skill;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +7,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CreateCategoryCommand {
+public class CreateSkillCommand{
 
     private String id;
-    private String token;
     private String username;
+    private String token;
 
     private String description;
+    private String categoryId;
 }
