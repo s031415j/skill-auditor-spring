@@ -1,19 +1,20 @@
 package com.example.skillsauditor.user.application.identity;
 
+import com.example.skillsauditor.user.ui.identity.interfaces.INFIdentityService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class IdentityService{
+public class IdentityService implements INFIdentityService {
 
     private JwtTokenUtil jwtTokenUtil;
 
-    private boolean isSpecifiedUser(String token, String user_id){
+     public boolean isSpecifiedUser(String token, String user_id){
         return getUserId(token).equals(user_id);
     }
 
-    private boolean isAdmin(String token){
+    public boolean isAdmin(String token){
         return getJobRole(token).equals("ADMIN");
     }
 

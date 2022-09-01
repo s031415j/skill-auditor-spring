@@ -1,6 +1,6 @@
 package com.example.skillsauditor.user.application.manager.DTO;
 
-import com.example.skillsauditor.user.application.employee.DTO.EmployeeDTO;
+import com.example.skillsauditor.user.application.staff.DTO.StaffDTO;
 import com.example.skillsauditor.user.domain.common.staff.Staff;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,7 +13,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Getter
 @ToString
-public class ManagerDTO extends EmployeeDTO {
+public class ManagerDTO extends StaffDTO {
 
     private String managerId;
     private List<Staff> team;

@@ -1,12 +1,6 @@
 package com.example.skillsauditor.user.domain.common.staff.interfaces;
 
-import com.example.skillsauditor.user.domain.common.staffSkill.StaffSkill;
-import com.example.skillsauditor.user.infrastructure.staffSkill.StaffSkillJpa;
-
-import java.util.List;
-
 public interface INFStaffJpa {
-
     String getId();
     String getFullNameFirstname();
     String getFullNameSurname();

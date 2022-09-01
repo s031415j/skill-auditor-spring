@@ -17,7 +17,6 @@ public class Staff extends Entity {
     private String jobRole;
     private String manager;
     private Address address;
-
     private List<StaffSkill> staffSkillList;
 
 

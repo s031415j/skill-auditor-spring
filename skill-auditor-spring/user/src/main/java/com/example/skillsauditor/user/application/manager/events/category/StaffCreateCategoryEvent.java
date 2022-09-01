@@ -1,4 +1,4 @@
 package com.example.skillsauditor.user.application.manager.events.category;
 
-public class EmployeeDeleteCategoryEvent {
+public class StaffCreateCategoryEvent {
 }

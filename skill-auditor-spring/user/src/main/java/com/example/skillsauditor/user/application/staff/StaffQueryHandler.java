@@ -2,9 +2,8 @@ package com.example.skillsauditor.user.application.staff;
 
 import com.example.skillsauditor.user.application.staff.DTO.StaffDTO;
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffRepository;
-import com.example.skillsauditor.user.domain.common.staff.interfaces.INFStaffJpa;
 import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
-import com.example.skillsauditor.user.ui.staff.INFStaffQueryHandler;
+import com.example.skillsauditor.user.ui.staff.interfaces.INFStaffQueryHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
