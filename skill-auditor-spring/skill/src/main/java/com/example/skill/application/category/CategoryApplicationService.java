@@ -1,4 +1,4 @@
 package com.example.skill.application.category;
 
-public class CategoryApplication {
+public class CategoryApplicationService {
 }
