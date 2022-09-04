@@ -15,21 +15,23 @@ public class Staff extends Entity {
     private FullName fullName;
     private LoginDetails loginDetails;
     private String jobRole;
-    private String manager;
     private Address address;
     private List<StaffSkill> staffSkillList;
 
 
 
-    public Staff(Identity id, FullName fullName, LoginDetails loginDetails, String jobRole, String manager, Address address ) {
+    public Staff(Identity id, FullName fullName, LoginDetails loginDetails, String jobRole, Address address ) {
         super(id);
         this.fullName = fullName;
         this.loginDetails = loginDetails;
         this.jobRole = jobRole;
-        this.manager = manager;
         this.address = address;
         this.staffSkillList = new ArrayList<>();
 
+    }
+
+    public Staff (Staff staff){
+        this(staff.id, staff.fullName, staff.loginDetails, staff.jobRole, staff.address, )
     }
 
     public static Staff staffOf(Identity id, FullName fullName, LoginDetails loginDetails, String jobRole, String manager, Address address){
@@ -44,7 +46,7 @@ public class Staff extends Entity {
     }
 
 
-    public void updateFullName(FullName fullName){
+    public void updateStaffDetails(){
         this.fullName = fullName;
     }
 
@@ -60,7 +62,7 @@ public class Staff extends Entity {
         return loginDetails;
     }
 
-    public String getJobRole() {
+    public JobRole getJobRole() {
         return jobRole;
     }
 

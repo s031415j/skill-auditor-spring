@@ -9,10 +9,9 @@ import lombok.ToString;
 @ToString
 public class CreateCategoryCommand {
 
-
     private String id;
     private String username;
     private String token;
 
-    private String description;
+    private String name;
 }

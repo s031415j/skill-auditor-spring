@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="77b301ac-fddf-4741-a0fc-23bc9345881d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/DTO/ManagerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/DTO/ManagerDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/DTO/ManagerTeamDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/DTO/TeamMemberDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/ManagerApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/ManagerApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/category/CreateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/category/CreateCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/category/DeleteCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/category/DeleteCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/category/EditCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/category/EditCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/skill/CreateSkillCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/skill/CreateSkillCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/skill/DeleteSkillCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/skill/DeleteSkillCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/skill/EditSkillCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/commands/skill/EditSkillCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/category/StaffCreateCategoryEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/category/CreateCategoryEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/category/StaffDeleteCategoryEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/category/DeleteCategoryEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/category/StaffEditCategoryEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/category/EditCategoryEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/skill/EmployeeCreateSkillEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/skill/CreateSkillEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/skill/EmployeeDeleteSkillEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/skill/DeleteSkillEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/skill/EmployeeEditSkillEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/events/skill/EditSkillEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/interfaces/INFManagerJpaToManagerConvertor.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/interfaces/INFManagerJpaToManagerConvertor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/interfaces/INFManagerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/interfaces/INFManagerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/interfaces/INFManagerToManagerJpaConvertor.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/manager/interfaces/INFManagerToManagerJpaConvertor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/staff/DTO/StaffDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/staff/DTO/StaffDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/staff/interfaces/INFStaffJpaToStaffConvertor.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/application/staff/interfaces/INFStaffJpaToStaffConvertor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/domain/common/staff/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/domain/common/staff/Staff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/domain/common/staff/convertors/StaffJpaToStaffConvertor.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/domain/common/staff/convertors/StaffJpaToStaffConvertor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/domain/common/staff/interfaces/INFStaffJpa.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/domain/common/staff/interfaces/INFStaffJpa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/ui/manager/interfaces/INFManagerApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/example/skillsauditor/user/ui/manager/interfaces/INFManagerApplicationService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2EImeBVdEil2vQBPb3SitWMQr2m" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/612821215/IdeaProjects/skill-auditor-spring/skill-auditor-spring/skill"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="77b301ac-fddf-4741-a0fc-23bc9345881d" name="Changes" comment="" />
+      <created>1662291566193</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1662291566193</updated>
+      <workItem from="1662291567533" duration="526000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

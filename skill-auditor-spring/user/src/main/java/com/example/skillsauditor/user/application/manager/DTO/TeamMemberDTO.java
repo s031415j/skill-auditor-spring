@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ManagerTeamDTO {
+public class TeamMemberDTO {
 
     private String staffId;
     private String staffFirstName;
