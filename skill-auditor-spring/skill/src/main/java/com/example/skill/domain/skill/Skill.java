@@ -3,13 +3,14 @@ package com.example.skill.domain.skill;
 import com.example.skill.application.skill.events.NewSkillAddedDomainEvent;
 import com.example.skill.domain.common.Entity;
 import com.example.skill.domain.common.Identity;
-import lombok.AllArgsConstructor;
+import lombok.ToString;
 
-@AllArgsConstructor
+@ToString
 public class Skill extends Entity {
 
     private String name;
     private String categoryId;
+
 
     public Skill(Identity id, String name, String categoryId){
         super(id);

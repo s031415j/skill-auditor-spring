@@ -1,4 +1,16 @@
 package com.example.skill.application.category.events;
 
-public class CreateCategoryEvent {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+@ToString
+public class CreateCategoryEvent implements Serializable {
+
+    private String id;
+    private String name;
 }
