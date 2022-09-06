@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CategoryDTO {
 
     private String id;

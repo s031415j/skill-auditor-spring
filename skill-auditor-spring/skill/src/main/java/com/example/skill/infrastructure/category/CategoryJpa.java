@@ -1,6 +1,7 @@
 package com.example.skill.infrastructure.category;
 
 
+import com.example.skill.application.category.interfaces.INFCategoryJpa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @Getter
 @ToString
 @AllArgsConstructor
-public class CategoryJpa {
+public class CategoryJpa implements INFCategoryJpa {
 
     @Id
     @Column(name = "id")
