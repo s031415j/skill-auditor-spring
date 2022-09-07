@@ -1,7 +1,6 @@
 package com.example.skillsauditor.user.domain.common.staff.interfaces;
 
-import com.example.skillsauditor.user.domain.common.staffSkill.StaffSkill;
-import com.example.skillsauditor.user.infrastructure.staff.StaffSkillJpaValueObject;
+import com.example.skillsauditor.user.infrastructure.staff.StaffSkillJpa;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public interface INFStaffJpa {
     String getAddressStreet();
     String getAddressTown();
     String getAddressPostcode();
-    List<StaffSkillJpaValueObject> getStaffSkills();
+    List<StaffSkillJpa> getStaffSkills();
 
     void addStaffSkill(StaffSkillJpa staffSkillJpa);
 

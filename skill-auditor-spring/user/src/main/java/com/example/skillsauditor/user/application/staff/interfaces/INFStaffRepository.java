@@ -7,7 +7,8 @@ import java.util.UUID;
 
 public interface INFStaffRepository {
 
-    Iterable<StaffJpa> findAllStaff();
-    Optional<StaffJpa> findStaffById(UUID id);
+    Iterable<StaffJpa> findAll();
+    Optional<StaffJpa> findById(String id);
     StaffJpa save(StaffJpa staff);
+    Iterable<StaffJpa> findAllStaffWithExpiredSkills();
 }

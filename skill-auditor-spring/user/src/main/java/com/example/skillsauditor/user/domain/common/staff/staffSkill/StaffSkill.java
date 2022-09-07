@@ -1,4 +1,4 @@
-package com.example.skillsauditor.user.domain.common.staffSkill;
+package com.example.skillsauditor.user.domain.common.staff.staffSkill;
 
 import com.example.skillsauditor.user.domain.common.Entity;
 import com.example.skillsauditor.user.domain.common.Identity;

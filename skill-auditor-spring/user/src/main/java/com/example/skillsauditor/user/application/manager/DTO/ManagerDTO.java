@@ -1,9 +1,8 @@
 package com.example.skillsauditor.user.application.manager.DTO;
 
 import com.example.skillsauditor.user.application.staff.DTO.StaffDTO;
-import com.example.skillsauditor.user.application.staffSkill.DTO.StaffSkillDTO;
+import com.example.skillsauditor.user.application.staff.staffSkill.DTO.StaffSkillDTO;
 import com.example.skillsauditor.user.domain.common.staff.JobRole;
-import com.example.skillsauditor.user.domain.common.staff.Staff;
 import lombok.*;
 
 import java.util.List;

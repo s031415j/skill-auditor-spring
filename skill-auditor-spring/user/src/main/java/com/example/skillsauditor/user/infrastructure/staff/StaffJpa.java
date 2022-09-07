@@ -1,5 +1,6 @@
 package com.example.skillsauditor.user.infrastructure.staff;
 
+import com.example.skillsauditor.user.domain.common.staff.interfaces.INFStaffJpa;
 import com.example.skillsauditor.user.infrastructure.staffSkill.StaffSkillJpa;
 import lombok.Getter;
 import lombok.Setter;

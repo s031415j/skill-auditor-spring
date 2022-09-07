@@ -1,4 +1,5 @@
 package com.example.skillsauditor.user.domain.common.staff;
 
-public class JobRole {
-}
+public enum JobRole
+    {Manager, Staff}
+

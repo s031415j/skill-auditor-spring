@@ -1,9 +1,8 @@
-package com.example.skillsauditor.user.domain.common.staffSkill.convertors;
+package com.example.skillsauditor.user.domain.common.staff.staffSkill.convertors;
 
-import com.example.skillsauditor.user.application.staffSkill.interfaces.INFStaffSkillJpaToStaffSkillConvertor;
+import com.example.skillsauditor.user.application.staff.staffSkill.interfaces.INFStaffSkillJpaToStaffSkillConvertor;
 import com.example.skillsauditor.user.domain.common.Identity;
-import com.example.skillsauditor.user.domain.common.staffSkill.StaffSkill;
-import com.example.skillsauditor.user.application.staffSkill.interfaces.INFStaffSkillJpa;
+import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
 import org.springframework.stereotype.Component;
 
 @Component

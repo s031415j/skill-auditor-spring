@@ -1,7 +1,6 @@
 package com.example.skillsauditor.user.application.staff.DTO;
 
-import com.example.skillsauditor.user.application.manager.DTO.TeamMemberDTO;
-import com.example.skillsauditor.user.application.staffSkill.DTO.StaffSkillDTO;
+import com.example.skillsauditor.user.application.staff.staffSkill.DTO.StaffSkillDTO;
 import com.example.skillsauditor.user.domain.common.staff.JobRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,7 +20,7 @@ public class StaffDTO{
     private String full_name_surname;
     private String login_details_username;
     private String login_details_password;
-    private JobRole job_role;
+    private String job_role;
     private String address_house_name_number;
     private String address_street;
     private String address_town;
@@ -33,7 +32,7 @@ public class StaffDTO{
                     String fullNameSurname,
                     String loginDetailsUsername,
                     String loginDetailsPassword,
-                    JobRole jobRole,
+                    String jobRole,
                     String addressHouseNameNumber,
                     String addressStreet,
                     String addressTown,

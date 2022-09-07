@@ -69,7 +69,7 @@ public class JwtTokenUtil implements Serializable {
         return getListOfClaimsFromToken(token).get(AppUserDTO.ID).toString();
     }
 
-    public String getRoleFromToken(String token) {
+    public String getJobRoleFromToken(String token) {
         return getListOfClaimsFromToken(token).get(AppUserDTO.JOB_ROLE).toString();
     }
 

@@ -30,7 +30,6 @@ public class ManagerApplicationService implements INFManagerApplicationService {
     private INFManagerJpaToManagerConvertor managerJpaToManagerConvertor;
     private INFManagerToManagerJpaConvertor managerToManagerJpaConvertor;
     private INFStaffRepository staffRepository;
-
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
 

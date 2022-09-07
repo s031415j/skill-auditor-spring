@@ -5,7 +5,7 @@ import com.example.skillsauditor.user.domain.common.staff.Address;
 import com.example.skillsauditor.user.domain.common.staff.FullName;
 import com.example.skillsauditor.user.domain.common.staff.LoginDetails;
 import com.example.skillsauditor.user.domain.common.staff.Staff;
-import com.example.skillsauditor.user.domain.common.staffSkill.StaffSkill;
+import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
 
 import java.util.ArrayList;
 import java.util.Collections;

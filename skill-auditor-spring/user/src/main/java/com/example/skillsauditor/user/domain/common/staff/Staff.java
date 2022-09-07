@@ -2,7 +2,7 @@ package com.example.skillsauditor.user.domain.common.staff;
 
 import com.example.skillsauditor.user.domain.common.Entity;
 import com.example.skillsauditor.user.domain.common.Identity;
-import com.example.skillsauditor.user.domain.common.staffSkill.StaffSkill;
+import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
 import lombok.ToString;
 
 import java.util.ArrayList;

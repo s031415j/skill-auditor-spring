@@ -1,5 +1,6 @@
 package com.example.skillsauditor.user.infrastructure.staff;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,7 +12,8 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @ToString
-public class StaffSkillJpaValueObject {
+@AllArgsConstructor
+public class StaffSkillJpa {
 
     @Id
     @Column(name = "id")
@@ -34,19 +36,11 @@ public class StaffSkillJpaValueObject {
     private LocalDate expiryDate;
 
 
-    public StaffSkillJpaValueObject(){
+    public StaffSkillJpa(){
 
     }
 
-    public StaffSkillJpaValueObject(long id, String staff_id, String skill_id, String strength_of_skill, LocalDate expiry_date) {
-        this.id = id;
-        this.staffId = staff_id;
-        this.skillId = skill_id;
-        this.strengthOfSkill = strength_of_skill;
-        this.expiryDate = expiry_date;
-    }
-
-    public static StaffSkillJpaValueObject staffSkillJpaOf(Long id, String staffId, String skillId, String strengthOfSkill, LocalDate expiryDate) {
-        return new StaffSkillJpaValueObject(id, staffId, skillId, strengthOfSkill, expiryDate);
+    public static StaffSkillJpa staffSkillJpaOf(long id, String staffId, String skillId, String strengthOfSkill, LocalDate expiryDate) {
+        return new StaffSkillJpa(id, staffId, skillId, strengthOfSkill, expiryDate);
     }
 }
