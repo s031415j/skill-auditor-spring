@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
-public class ManagerTeamJpaValueObject {
+public class ManagerTeamJpa {
 
     @Id
     @Column(name = "id")
@@ -35,9 +35,9 @@ public class ManagerTeamJpaValueObject {
     @JoinColumn(name = "staff_id", referencedColumnName = "id")
     private StaffJpa staff;
 
-    public ManagerTeamJpaValueObject(){}
+    public ManagerTeamJpa(){}
 
-    public ManagerTeamJpaValueObject(long id, String manager_id, String fullname_first_name, String fullname_surname, StaffJpa staffJpa) {
+    public ManagerTeamJpa(long id, String manager_id, String fullname_first_name, String fullname_surname, StaffJpa staffJpa) {
         this.id = id;
         this.managerId = manager_id;
         this.fullNameFirstname = fullname_first_name;

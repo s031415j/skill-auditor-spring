@@ -1,4 +1,20 @@
 package com.example.skillsauditor.user.domain.common.staff.staffSkill;
 
-public enum StrengthOfSkill
-{Beginner, Advanced, Professional}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum StrengthOfSkill {
+
+    BEGINNER("Beginner"),
+    INTERMEDIATE("Intermediate"),
+    PROFESSIONAL("Professional");
+
+    private final String strengthOfSkill;
+
+    public String getStrength() {
+        return strengthOfSkill;
+    }
+}
+

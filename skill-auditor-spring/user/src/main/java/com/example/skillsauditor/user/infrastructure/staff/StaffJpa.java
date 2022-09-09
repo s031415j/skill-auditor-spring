@@ -1,7 +1,6 @@
 package com.example.skillsauditor.user.infrastructure.staff;
 
 import com.example.skillsauditor.user.domain.common.staff.interfaces.INFStaffJpa;
-import com.example.skillsauditor.user.infrastructure.staffSkill.StaffSkillJpa;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -52,7 +51,7 @@ public class StaffJpa implements INFStaffJpa {
     private String addressPostcode;
 
     @OneToMany(mappedBy = "staffId", cascade = {CascadeType.ALL})
-    private List<StaffSkillJpa> staffSkillJpaList;
+    private List<StaffSkillJpa> staffSkills;
 
    protected StaffJpa(){
 
@@ -60,7 +59,7 @@ public class StaffJpa implements INFStaffJpa {
 
     protected StaffJpa(String id, String fullName_firstname,
                     String fullName_surname, String loginDetails_username,
-                    String loginDetails_password, String job_role, String manager,
+                    String loginDetails_password, String job_role,
                     String address_houseNameNumber, String address_street,
                     String address_town, String address_postcode) {
         this.id = id;
@@ -69,22 +68,21 @@ public class StaffJpa implements INFStaffJpa {
         this.loginDetailsUsername = loginDetails_username;
         this.loginDetailsPassword = loginDetails_password;
         this.jobRole = job_role;
-        this.manager = manager;
         this.addressHouseNameNumber = address_houseNameNumber;
         this.addressStreet = address_street;
         this.addressTown = address_town;
         this.addressPostcode = address_postcode;
-        staffSkillJpaList = new ArrayList<>();
+        staffSkills = new ArrayList<>();
 
     }
 
     public static StaffJpa staffJpaOf(String id, String fullNameFirstname,
                                       String fullNameSurname, String loginDetailsUsername,
-                                      String loginDetailsPassword, String jobRole, String manager,
+                                      String loginDetailsPassword, String jobRole,
                                       String addressHouseNameNumber, String addressStreet,
                                       String addressTown, String addressPostcode){
        return new StaffJpa(id, fullNameFirstname, fullNameSurname, loginDetailsUsername, loginDetailsPassword,
-               jobRole, manager, addressHouseNameNumber, addressStreet, addressTown, addressPostcode);
+               jobRole, addressHouseNameNumber, addressStreet, addressTown, addressPostcode);
     }
 
     @Override
@@ -92,8 +90,34 @@ public class StaffJpa implements INFStaffJpa {
         return null;
     }
 
+    @Override
+    public void setStaffSkills(List<StaffSkillJpa> staffSkills) {
+        this.staffSkills = staffSkills;
+    }
+
+
+    public StaffSkillJpa getStaffSkill(String skillId){
+       for(StaffSkillJpa staffSkill : staffSkills){
+           if(staffSkill.getSkillId().equals(skillId)){
+               return staffSkill;
+           }
+       }
+       return null;
+    }
+
     public void addStaffSkill(StaffSkillJpa staffSkillJpa) {
-        staffSkillJpaList.add(staffSkillJpa);
+        staffSkills.add(staffSkillJpa);
    }
 
+    public void deleteStaffSkill(StaffSkillJpa staffSkillJpa) {
+        staffSkills.remove(staffSkillJpa);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

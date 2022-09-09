@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CrudStaffRepository extends CrudRepository<StaffJpa, String> {
-
+    Iterable<StaffJpa> findAllWithExpiredSkills();
 
 }

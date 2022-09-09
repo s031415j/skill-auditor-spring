@@ -21,74 +21,24 @@ import java.util.List;
 @Component
 public class StaffJpaToStaffConvertor implements INFStaffJpaToStaffConvertor {
 
+    public Staff convert(StaffJpa staffJpa) {
+        Identity identity = new Identity(staffJpa.getId());
+        FullName fullName = new FullName(staffJpa.getFullNameFirstname(), staffJpa.getFullNameSurname());
+        LoginDetails loginDetails = new LoginDetails(staffJpa.getLoginDetailsUsername(), staffJpa.getLoginDetailsPassword());
+        Address address = new Address(staffJpa.getAddressHouseNameNumber(), staffJpa.getAddressStreet(), staffJpa.getAddressTown(), staffJpa.getAddressPostcode());
+        JobRole jobRole = JobRole.valueOf(staffJpa.getJobRole());
 
-    public static List<StaffSkillDTO> convertStaffSkillsToDTO(INFStaffJpa staffJpa) {
-        List<StaffSkillDTO> skills = new ArrayList<>();
+        Staff staff = Staff.staffOf(identity, fullName, loginDetails, jobRole , address);
 
         for (StaffSkillJpa staffSkillJpa : staffJpa.getStaffSkills()) {
-
             ExpiryDate expiryDate = new ExpiryDate(staffSkillJpa.getExpiryDate().getMonthValue(), staffSkillJpa.getExpiryDate().getYear());
+            StrengthOfSkill strength = StrengthOfSkill.valueOf(staffSkillJpa.getStrengthOfSkill());
+            StaffSkill staffSkill = new StaffSkill(staffSkillJpa.getStaffId(), staffSkillJpa.getSkillId(), strength, expiryDate);
 
-            StaffSkillDTO skill = new StaffSkillDTO(staffSkillJpa.getSkillId(), StrengthOfSkill.valueOf(staffSkillJpa.getStrengthOfSkill().toUpperCase()), expiryDate);
-
-            skills.add(skill);
-        }
-        return skills;
-    }
-
-    public static List<StaffDTO> convertStaffJpaListToDTO(Iterable<StaffJpa> result) {
-        List<StaffDTO> staff = new ArrayList<>();
-
-        for (StaffJpa staffJpa : result) {
-            List<StaffSkillDTO> skills = getListOfExpiredSkills(staffJpa);
-
-            StaffDTO staffDTO = new StaffDTO(
-                    staffJpa.getId(),
-                    staffJpa.getFullNameFirstname(),
-                    staffJpa.getFullNameSurname(),
-                    staffJpa.getLoginDetailsUsername(),
-                    staffJpa.getLoginDetailsPassword(),
-                    staffJpa.getJobRole(),
-                    staffJpa.getAddressHouseNameNumber(),
-                    staffJpa.getAddressStreet(),
-                    staffJpa.getAddressTown(),
-                    staffJpa.getAddressPostcode(),
-                    skills
-            );
-            staff.add(staffDTO);
+            staffSkill.setId(staffSkillJpa.getId());
+            staff.addStaffSkill(staffSkill);
         }
         return staff;
     }
-    public static List<StaffSkillDTO> getListOfExpiredSkills(StaffJpa staffJpa) {
-        List<StaffSkillDTO> staffSkills = new ArrayList<>();
-
-        for (StaffSkillJpa staffSkillJpa : staffJpa.getStaffSkills()) {
-            if(skillExpired(staffSkillJpa)) {
-                ExpiryDate expiryDate = setExpiryDate(staffSkillJpa);
-
-                StaffSkillDTO skill = new StaffSkillDTO(
-                        staffSkillJpa.getSkillId(),
-                        StrengthOfSkill.valueOf(staffSkillJpa.getStrengthOfSkill()),
-                        expiryDate);
-                staffSkills.add(skill);
-            }
-        }
-        return staffSkills;
-    }
-
-
-    private static boolean skillExpired(StaffSkillJpa staffSkillJpa) {
-        if (staffSkillJpa.getExpiryDate().isBefore(LocalDate.now())) {
-            return true;
-        }
-        return false;
-    }
-
-    private static ExpiryDate setExpiryDate(StaffSkillJpa staffSkillJpa) {
-
-        ExpiryDate expiryDate = new ExpiryDate();
-        expiryDate.setExpiry(staffSkillJpa.getExpiryDate().getMonthValue(), staffSkillJpa.getExpiryDate().getYear());
-        return expiryDate;
-    }
-
 }
+

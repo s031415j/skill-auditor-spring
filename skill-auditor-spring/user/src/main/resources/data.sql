@@ -5,14 +5,14 @@ VALUES('6e29166c-247d-11ed-861d-0242ac120002', 'Katherine', 'Shields', 'katherin
       ('96721086-2ed4-11ed-a261-0242ac120002', 'Alan', 'Shields', 'alan', 'password', 'Electrician', '81', 'Garden Road', 'Antrim', 'BT41 1BP');
 
 
-INSERT INTO staff_skill(id, staff_id, skill_id, strength_of_skill, expiry_date)
-VALUES ('1','6e29166c-247d-11ed-861d-0242ac120002', '6e291932-247d-11ed-861d-0242ac120002', 1, '01-12-25'),
-       ('2','6e29166c-247d-11ed-861d-0242ac120002', '6e291a18-247d-11ed-861d-0242ac120002', 2, '07-03-24'),
-       ('3','6e291838-247d-11ed-861d-0242ac120002', '6e291932-247d-11ed-861d-0242ac120002', 0, '15-06-24');
+INSERT INTO staff_skill( staff_id, skill_id, strength_of_skill, expiry_date)
+VALUES ('6e29166c-247d-11ed-861d-0242ac120002', '6e291932-247d-11ed-861d-0242ac120002', 'Beginner', '01-12-25'),
+       ('6e29166c-247d-11ed-861d-0242ac120002', '6e291a18-247d-11ed-861d-0242ac120002', 'Intermediate', '07-03-24'),
+       ('6e291838-247d-11ed-861d-0242ac120002', '6e291932-247d-11ed-861d-0242ac120002', 'Professional', '15-06-24');
 create sequence staff_skill_sequence_id start with (select max(id) + 1 from staff_skill);
 
 
-INSERT INTO manager_team(staff_id, manager_id, fullname_firstname, fullname_surname)
+INSERT INTO team(staff_id, manager_id, fullname_firstname, fullname_surname)
 VALUES ('96720fa0-2ed4-11ed-a261-0242ac120002', '96720cee-2ed4-11ed-a261-0242ac120002','Kellie', 'Shields'),
        ('96721086-2ed4-11ed-a261-0242ac120002', '96720eb0-2ed4-11ed-a261-0242ac120002', 'Alan', 'Shields');
-create sequence team_sequence_id start with (select max(id) + 1 from manager_team);
+create sequence team_sequence_id start with (select max(id) + 1 from team);

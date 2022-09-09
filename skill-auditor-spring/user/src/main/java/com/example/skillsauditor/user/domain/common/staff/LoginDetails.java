@@ -2,12 +2,8 @@ package com.example.skillsauditor.user.domain.common.staff;
 
 
 import com.example.skillsauditor.user.domain.common.ValueObject;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
-@EqualsAndHashCode
-@ToString
 @Getter
 public class LoginDetails extends ValueObject {
 

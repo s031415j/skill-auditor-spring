@@ -13,15 +13,22 @@ public class StaffRepository implements INFStaffRepository {
 
     private CrudStaffRepository repository;
 
-    public Iterable<StaffJpa> findAllStaff(){
+    @Override
+    public Iterable<StaffJpa> findAll() {
         return repository.findAll();
     }
 
-    public Optional<StaffJpa> findStaffById(UUID id){
-        return repository.findById(id.toString());
+    @Override
+    public Optional<StaffJpa> findById(String id) {
+        return repository.findById(id);
     }
 
     public StaffJpa save(StaffJpa staff){
         return repository.save(staff);
+    }
+
+    @Override
+    public Iterable<StaffJpa> findAllStaffWithExpiredSkills() {
+        return repository.findAllWithExpiredSkills();
     }
 }

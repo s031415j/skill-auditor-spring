@@ -2,81 +2,70 @@ package com.example.skillsauditor.user.domain.common.staff;
 
 import com.example.skillsauditor.user.domain.common.Entity;
 import com.example.skillsauditor.user.domain.common.Identity;
+import com.example.skillsauditor.user.domain.common.staff.interfaces.INFEditStaffCommand;
 import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Getter
+@Setter
 @ToString
 public class Staff extends Entity {
 
     private FullName fullName;
     private LoginDetails loginDetails;
-    private String jobRole;
+    private JobRole jobRole;
     private Address address;
-    private List<StaffSkill> staffSkillList;
+    private List<StaffSkill> staffSkills;
 
-
-
-    public Staff(Identity id, FullName fullName, LoginDetails loginDetails, String jobRole, Address address ) {
+    public Staff(Identity id, FullName fullName, LoginDetails loginDetails, JobRole jobRole, Address address) {
         super(id);
         this.fullName = fullName;
         this.loginDetails = loginDetails;
         this.jobRole = jobRole;
         this.address = address;
-        this.staffSkillList = new ArrayList<>();
-
+        this.staffSkills = new ArrayList<>();
     }
 
-    public Staff (Staff staff){
-        this(staff.id, staff.fullName, staff.loginDetails, staff.jobRole, staff.address, )
-    }
-
-    public static Staff staffOf(Identity id, FullName fullName, LoginDetails loginDetails, String jobRole, String manager, Address address){
-        return new Staff(id,fullName, loginDetails, jobRole, manager, address);
+    public static Staff staffOf(Identity id, FullName fullName, LoginDetails loginDetails, JobRole jobRole, Address address){
+        return new Staff(id,fullName, loginDetails, jobRole, address);
     }
 
     public StaffSkill addStaffSkill(StaffSkill staffSkill){
-        if(!staffSkillList.contains(staffSkill)){
-            this.staffSkillList.add(staffSkill);
+        if(!staffSkills.contains(staffSkill)){
+            this.staffSkills.add(staffSkill);
         }
         return staffSkill;
     }
 
-
-    public void updateStaffDetails(){
-        this.fullName = fullName;
+    public boolean getStaffSkillsBySkillById(String id) {
+        for(StaffSkill staffSkill : staffSkills) {
+            if(staffSkill.getSkillId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public Identity getId(){
+    public List<StaffSkill> getAllSkills() {
+        return staffSkills;
+    }
+
+    public Identity id(){
         return id;
     }
 
-    public FullName getFullName() {
-        return fullName;
+    public void editStaffDetails(INFEditStaffCommand editStaffCommand) {
+        this.fullName = editStaffCommand.getFullName();
+        this.address = editStaffCommand.getAddress();
+        this.jobRole = JobRole.valueOf(editStaffCommand.getJobRole());
+        this.loginDetails = editStaffCommand.getLoginDetails();
     }
-
-    public LoginDetails getLoginDetails() {
-        return loginDetails;
-    }
-
-    public JobRole getJobRole() {
-        return jobRole;
-    }
-
-    public String getManager() {
-        return manager;
-    }
-
-    public Address getFullAddress() {
-        return address;
-    }
-
-    public List<StaffSkill> retrieveAllStaffSkills(){
-        return Collections.unmodifiableList(staffSkillList);
-    }
-
 
 }

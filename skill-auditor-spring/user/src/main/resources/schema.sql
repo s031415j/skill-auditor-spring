@@ -20,7 +20,7 @@ CREATE TABLE staff_skill(
     expiry_date DATE
 );
 
-CREATE TABLE manager_team(
+CREATE TABLE team(
     id int AUTO_INCREMENT PRIMARY KEY,
     staff_id VARCHAR NOT NULL,
     manager_id VARCHAR NOT NULL,

@@ -16,8 +16,8 @@ public class ExpiryDate extends ValueObject {
     private int year;
 
     public ExpiryDate(){
-
     }
+
     private void setExpiryYear(int year) {
         if (year > LocalDate.now().getYear()) {
             this.year = year;
@@ -34,22 +34,18 @@ public class ExpiryDate extends ValueObject {
         }
     }
 
+    public boolean equals(Object o){
+        if (o == null && o.getClass() != this.getClass()){
+            return false;
+        }
+        ExpiryDate expirationDate = (ExpiryDate) o;
+
+        return expirationDate.month==this.month &&
+                expirationDate.year==this.year;
+    }
+
     public void setExpiry(int month, int year) {
         this.month = month;
         this.year = year;
     }
-
-//    public boolean equals(Object o){
-//
-//        if (o == null && o.getClass() != this.getClass()){
-//            return false;
-//        }
-//
-//        ExpiryDate expiryDate = (ExpiryDate) o;
-//
-//        boolean isExpiryMonth = expiryDate.month==this.month;
-//        boolean isExpiryYear = expiryDate.year==this.year;
-//
-//        return isExpiryMonth && isExpiryYear;
-//    }
 }

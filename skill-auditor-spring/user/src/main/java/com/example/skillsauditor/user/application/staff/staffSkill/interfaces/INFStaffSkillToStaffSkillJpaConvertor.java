@@ -4,5 +4,7 @@ import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
 import com.example.skillsauditor.user.infrastructure.staff.StaffSkillJpa;
 
 public interface INFStaffSkillToStaffSkillJpaConvertor {
-    StaffSkillJpa convert(StaffSkill staffSkill);
+
+    StaffSkillJpa convert(String staffId, StaffSkill skill);
+
 }

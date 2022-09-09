@@ -1,7 +1,9 @@
 package com.example.skillsauditor.user.infrastructure.manager;
 
-import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
-import com.example.skillsauditor.user.infrastructure.staffSkill.StaffSkillJpa;
+import com.example.skillsauditor.user.domain.manager.interfaces.INFManagerJpa;
+import com.example.skillsauditor.user.infrastructure.staff.StaffSkillJpa;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -11,7 +13,9 @@ import java.util.List;
 @Entity(name="manager")
 @Table(name = "user")
 @ToString
-public class ManagerJpa implements INFManagerJpa{
+@Getter
+@Setter
+public class ManagerJpa implements INFManagerJpa {
 
     @Id
     @Column(name="id")
@@ -47,16 +51,19 @@ public class ManagerJpa implements INFManagerJpa{
     @Column(name="address_postcode")
     private String addressPostcode;
 
+    @OneToMany(mappedBy = "staffId", cascade = {CascadeType.ALL})
+    private List<StaffSkillJpa> staffSkills;
+
     @OneToMany(mappedBy = "manager", cascade = {CascadeType.ALL})
-    private List<ManagerTeamJpaValueObject> team;
+    private List<ManagerTeamJpa> team;
 
     protected ManagerJpa(){
 
     }
 
-    protected ManagerJpa(String id, String fullName_firstname,
+    public ManagerJpa(String id, String fullName_firstname,
                        String fullName_surname, String loginDetails_username,
-                       String loginDetails_password, String job_role, String manager,
+                       String loginDetails_password, String job_role,
                        String address_houseNameNumber, String address_street,
                        String address_town, String address_postcode) {
         this.id = id;
@@ -65,31 +72,52 @@ public class ManagerJpa implements INFManagerJpa{
         this.loginDetailsUsername = loginDetails_username;
         this.loginDetailsPassword = loginDetails_password;
         this.jobRole = job_role;
-        this.manager = manager;
         this.addressHouseNameNumber = address_houseNameNumber;
         this.addressStreet = address_street;
         this.addressTown = address_town;
         this.addressPostcode = address_postcode;
+        this.staffSkills = new ArrayList<>();
         team = new ArrayList<>();
-
     }
 
-    public static StaffJpa staffJpaOf(String id, String fullNameFirstname,
+    public static ManagerJpa managerJpaOf(String id, String fullNameFirstname,
                                       String fullNameSurname, String loginDetailsUsername,
-                                      String loginDetailsPassword, String jobRole, String manager,
+                                      String loginDetailsPassword, String jobRole,
                                       String addressHouseNameNumber, String addressStreet,
                                       String addressTown, String addressPostcode){
-        return new StaffJpa(id, fullNameFirstname, fullNameSurname, loginDetailsUsername, loginDetailsPassword,
-                jobRole, manager, addressHouseNameNumber, addressStreet, addressTown, addressPostcode);
+        return new ManagerJpa(id, fullNameFirstname, fullNameSurname, loginDetailsUsername, loginDetailsPassword,
+                jobRole, addressHouseNameNumber, addressStreet, addressTown, addressPostcode);
+    }
+
+
+    public void removeTeamMember(ManagerTeamJpa newTeamMember) {
+        this.team.remove(newTeamMember);
+    }
+
+    public void addTeamMember(ManagerTeamJpa managerTeamJpaValueObject) {
+        team.add(managerTeamJpaValueObject);
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override
     public List<StaffSkillJpa> getStaffSkills() {
-        return null;
+        return staffSkills;
     }
 
-    public void addStaffSkill(StaffSkillJpa staffSkillJpa) {
-        staffSkillJpaList.add(staffSkillJpa);
+    public void setId(String id) {
+        this.id = id;
     }
 
+    @Override
+    public void setStaffSkills(List<StaffSkillJpa> staffSkills) {
+        this.staffSkills = staffSkills;
+    }
+
+    @Override
+    public void deleteTeamMember(ManagerTeamJpa teamMember) {
+        this.team.remove(teamMember);
+    }
 }

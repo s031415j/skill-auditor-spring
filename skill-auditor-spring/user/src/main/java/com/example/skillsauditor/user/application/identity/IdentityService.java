@@ -1,28 +1,41 @@
 package com.example.skillsauditor.user.application.identity;
 
+import com.example.skillsauditor.user.domain.common.UserDetails;
 import com.example.skillsauditor.user.ui.identity.interfaces.INFIdentityService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @AllArgsConstructor
 public class IdentityService implements INFIdentityService {
 
-    private JwtTokenUtil jwtTokenUtil;
-
-     public boolean isSpecifiedUser(String token, String user_id){
-        return getUserId(token).equals(user_id);
+    public String validateAndGetRole(UserDetails userDetails) {
+        String URL = "http://localhost:8082/validateRole";
+        return getResponseFromIdentityContext(userDetails, URL);
     }
 
-    public boolean isAdmin(String token){
-        return getJobRole(token).equals("ADMIN");
+    public String getID(UserDetails userDetails) {
+        String URL = "http://localhost:8082/id";
+        return getResponseFromIdentityContext(userDetails, URL);
     }
 
-    private String getUserId(String token){
-        return jwtTokenUtil.getClaimFromToken(token, UserDTO.ID);
+    private String getResponseFromIdentityContext(UserDetails userDetails, String URL){
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpEntity<UserDetails> request = new HttpEntity<>(
+                new UserDetails(userDetails.getId(), userDetails.getToken(), userDetails.getUsername()));
+        String response = restTemplate.postForObject(URL, request, String.class);
+        return response;
     }
 
-    private String getJobRole(String token) {
-        return jwtTokenUtil.getClaimFromToken(token, UserDTO.JOB_ROLE);
+    public boolean isSpecifiedUser(UserDetails userDetails, String staffId){
+        return getID(userDetails).equals(staffId);
+    }
+
+
+    public boolean isAdmin(UserDetails userDetails){
+        return validateAndGetRole(userDetails).equals("ADMIN");
     }
 }

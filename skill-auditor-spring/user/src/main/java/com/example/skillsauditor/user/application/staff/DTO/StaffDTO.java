@@ -20,35 +20,11 @@ public class StaffDTO{
     private String full_name_surname;
     private String login_details_username;
     private String login_details_password;
-    private String job_role;
+    private JobRole job_role;
     private String address_house_name_number;
     private String address_street;
     private String address_town;
     private String address_postcode;
     private List<StaffSkillDTO> skills;
-
-    public StaffDTO(String id,
-                    String fullNameFirstname,
-                    String fullNameSurname,
-                    String loginDetailsUsername,
-                    String loginDetailsPassword,
-                    String jobRole,
-                    String addressHouseNameNumber,
-                    String addressStreet,
-                    String addressTown,
-                    String addressPostcode,
-                    List<StaffSkillDTO> skills){
-        this.id = id;
-        this.full_name_first_name = fullNameFirstname;
-        this.full_name_surname = fullNameSurname;
-        this.login_details_username = loginDetailsUsername;
-        this.login_details_password = loginDetailsPassword;
-        this.job_role = jobRole;
-        this.address_house_name_number = addressHouseNameNumber;
-        this.address_street = addressStreet;
-        this.address_town = addressTown;
-        this.address_postcode = addressPostcode;
-        this.skills = skills;
-    }
 
 }
