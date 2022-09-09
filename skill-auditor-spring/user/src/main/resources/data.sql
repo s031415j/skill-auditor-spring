@@ -12,7 +12,7 @@ VALUES ('6e29166c-247d-11ed-861d-0242ac120002', '6e291932-247d-11ed-861d-0242ac1
 create sequence staff_skill_sequence_id start with (select max(id) + 1 from staff_skill);
 
 
-INSERT INTO team(staff_id, manager_id, fullname_firstname, fullname_surname)
+INSERT INTO team(staff_id, manager_id, fullname_first_name, fullname_surname)
 VALUES ('96720fa0-2ed4-11ed-a261-0242ac120002', '96720cee-2ed4-11ed-a261-0242ac120002','Kellie', 'Shields'),
        ('96721086-2ed4-11ed-a261-0242ac120002', '96720eb0-2ed4-11ed-a261-0242ac120002', 'Alan', 'Shields');
 create sequence team_sequence_id start with (select max(id) + 1 from team);
