@@ -23,12 +23,4 @@ public abstract class Entity extends AssertionConcern{
         return listOfEvents;
     }
 
-    public boolean equals(Object o){
-        if(o == null && o.getClass() != this.getClass()){
-            return false;
-        }
-        Entity another = (Entity) o;
-
-        return another.id == this.id;
-    }
 }

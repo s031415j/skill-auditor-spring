@@ -19,13 +19,27 @@ public class IdentityController {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @PostMapping("/validate")
-    public ResponseEntity<?> validate(@RequestBody UserDetails command){
-        Optional<AppUserDTO> result = userService.authenticate(command.getUsername(), command.getPassword());
+    public ResponseEntity<?> validate(@RequestBody UserDetails userDetails){
+        Optional<AppUserDTO> result = userService.authenticate(userDetails.getUsername(), userDetails.getPassword());
         if(result.isPresent()){
             final String token = jwtTokenUtil.generateToken(result.get());
             return ResponseEntity.ok(token);
         }
 
         return ResponseEntity.badRequest().body("Invalid details provided /validate");
+    }
+
+    @PostMapping("/validateRole")
+    public ResponseEntity<?> validateRole(@RequestBody UserDetails command){
+        boolean valid = jwtTokenUtil.validateToken(command.getToken(), command.getUsername());
+        if (valid) return ResponseEntity.ok(jwtTokenUtil.getRoleFromToken(command.getToken()));
+        return ResponseEntity.badRequest().body("Invalid details provided /validateRole");
+    }
+
+    @PostMapping("/id")
+    public ResponseEntity<?> getID(@RequestBody UserDetails command){
+        boolean valid = jwtTokenUtil.validateToken(command.getToken(), command.getUsername());
+        if (valid) return ResponseEntity.ok(jwtTokenUtil.getIDFromToken(command.getToken()));
+        return ResponseEntity.badRequest().body("Invalid details provided /id");
     }
 }

@@ -25,10 +25,10 @@ public class UserService implements INFUserService {
 
     private AppUserDTO convertToDTO(AppUserJpa user){
         return new AppUserDTO(user.getUserUUID(),
-                user.getUserName(),
-                user.getPassword(),
                 user.getFirstName(),
                 user.getSurname(),
+                user.getUsername(),
+                user.getPassword(),
                 user.getJobRole().toString());
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="manager")
-@Table(name = "user")
+@Table(name = "staff")
 @ToString
 @Getter
 @Setter
@@ -35,9 +35,6 @@ public class ManagerJpa implements INFManagerJpa {
 
     @Column(name="job_role")
     private String jobRole;
-
-    @Column(name="manager")
-    private String manager;
 
     @Column(name="address_house_name_number")
     private String addressHouseNameNumber;

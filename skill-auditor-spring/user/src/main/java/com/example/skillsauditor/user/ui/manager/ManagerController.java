@@ -136,7 +136,7 @@ public class ManagerController {
         UserDetails userDetails = UserDetails.userDetailsOf(createSkillCommand.getId(), createSkillCommand.getToken(), createSkillCommand.getUsername());
 
         if (identityService.isAdmin(userDetails)) {
-            applicationService.createCategory((INFCreateCategoryCommand) createSkillCommand);
+            applicationService.createCategory(createSkillCommand);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorised user");
         }

@@ -23,7 +23,7 @@ public class ManagerTeamJpa {
     private long id;
 
     @Column(name = "manager_id")
-    private String managerId;
+    private String manager;
 
     @Column(name = "fullname_first_name")
     private String fullNameFirstname;
@@ -39,7 +39,7 @@ public class ManagerTeamJpa {
 
     public ManagerTeamJpa(long id, String manager_id, String fullname_first_name, String fullname_surname, StaffJpa staffJpa) {
         this.id = id;
-        this.managerId = manager_id;
+        this.manager = manager_id;
         this.fullNameFirstname = fullname_first_name;
         this.fullNameSurname = fullname_surname;
         this.staff = staffJpa;

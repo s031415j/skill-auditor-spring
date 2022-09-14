@@ -24,7 +24,7 @@ public class CategoryJpa implements INFCategoryJpa {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "category_name")
     private String name;
 
     protected CategoryJpa(){

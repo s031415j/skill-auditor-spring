@@ -26,7 +26,7 @@ public class AppUserJpa {
 
     @NotNull
     @Column(name = "username")
-    private String userName;
+    private String username;
 
     @NotNull
     @Column(name = "password")
@@ -37,7 +37,7 @@ public class AppUserJpa {
     private JobRoleJpa jobRole;
 
     public String toString(){
-        return String.format("%s, %s, %s, %s %s" , userUUID, userName, password, jobRole);
+        return String.format("%s, %s, %s, %s %s" , userUUID, username, password, jobRole);
     }
 
 }

@@ -89,7 +89,7 @@ public class SkillApplicationService implements INFSkillApplicationService {
         }
     }
 
-    public void createNewSkill(CreateSkillEvent event, Optional<CategoryJpa>  category){
+    private void createNewSkill(CreateSkillEvent event, Optional<CategoryJpa> category){
 
         Identity identity = new Identity(event.getId());
 
@@ -98,10 +98,10 @@ public class SkillApplicationService implements INFSkillApplicationService {
         LOG.info("New skill added successfully");
     }
 
-    public void editSkill(EditSkillEvent event, Optional<SkillJpa> skillJpa){
+    private void editSkill(EditSkillEvent event, Optional<SkillJpa> skillJpa){
 
         Skill skill = skillJpaToSkillConvertor.convert(skillJpa.get());
-        skill.updateName(event.getName());
+        skill.editName(event.getName());
 
         Optional<CategoryJpa> categoryJpa = getSkillCategory(skill);
 

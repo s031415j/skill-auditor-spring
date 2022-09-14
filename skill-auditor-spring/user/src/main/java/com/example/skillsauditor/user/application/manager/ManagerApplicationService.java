@@ -26,9 +26,13 @@ import com.example.skillsauditor.user.infrastructure.manager.ManagerJpa;
 import com.example.skillsauditor.user.infrastructure.manager.ManagerTeamJpa;
 import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
 import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerApplicationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -44,6 +48,9 @@ public class ManagerApplicationService implements INFManagerApplicationService {
     private INFStaffRepository staffRepository;
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    private Environment environment;
+    private RabbitTemplate sender;
+    private ObjectMapper mapper;
 
     @Override
     public void createCategory(INFCreateCategoryCommand createCategoryCommand) {
@@ -52,6 +59,16 @@ public class ManagerApplicationService implements INFManagerApplicationService {
         CreateCategoryEvent categoryEvent = new CreateCategoryEvent();
         categoryEvent.setId(identity.id());
         categoryEvent.setName(createCategoryCommand.getName());
+
+        try{
+            String eventAsJson = mapper.writeValueAsString(categoryEvent);
+            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                    environment.getProperty("rabbitmq.createCategoryQueueRoutingKey"),
+                    eventAsJson);
+
+        }catch (JsonProcessingException e) {
+            LOG.error(e.getMessage());
+        }
     }
 
     @Override

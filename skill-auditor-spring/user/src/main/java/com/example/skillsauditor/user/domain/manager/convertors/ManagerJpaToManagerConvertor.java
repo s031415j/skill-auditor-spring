@@ -26,7 +26,7 @@ public class ManagerJpaToManagerConvertor implements INFManagerJpaToManagerConve
         Manager manager = Manager.managerOf(identity, fullName, loginDetails, jobRole, address);
 
         for(ManagerTeamJpa mTeam : managerJpa.getTeam()){
-            ManagerTeam teamMember = ManagerTeam.managerTeamOf( mTeam.getManagerId(), mTeam.getStaff().getId(), fullName);
+            ManagerTeam teamMember = ManagerTeam.managerTeamOf( mTeam.getManager(), mTeam.getStaff().getId(), fullName);
             manager.addStaffToTeam(teamMember);
         }
 

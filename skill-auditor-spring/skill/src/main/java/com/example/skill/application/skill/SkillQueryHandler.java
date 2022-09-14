@@ -4,7 +4,7 @@ import com.example.skill.application.category.DTO.CategoryDTO;
 import com.example.skill.application.skill.DTO.SkillDTO;
 import com.example.skill.application.skill.DTO.SkillDTOList;
 import com.example.skill.application.skill.interfaces.INFSkillRepository;
-import com.example.skill.domain.skill.interfaces.INFSkillJpa;
+import com.example.skill.application.skill.interfaces.INFSkillJpa;
 import com.example.skill.infrastructure.skill.SkillJpa;
 import com.example.skill.ui.skill.interfaces.INFSkillQueryHandler;
 import lombok.AllArgsConstructor;

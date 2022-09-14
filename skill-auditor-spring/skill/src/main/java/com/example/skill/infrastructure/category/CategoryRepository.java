@@ -12,7 +12,6 @@ public class CategoryRepository implements INFCategoryRepository {
 
     private CrudCategoryRepository repository;
 
-
     @Override
     public Optional<CategoryJpa> findById(String id) {
         return repository.findById(id);

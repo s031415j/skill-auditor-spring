@@ -1,6 +1,6 @@
 package com.example.skill.infrastructure.skill;
 
-import com.example.skill.domain.skill.interfaces.INFSkillJpa;
+import com.example.skill.application.skill.interfaces.INFSkillJpa;
 import com.example.skill.infrastructure.category.CategoryJpa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,11 +21,11 @@ public class SkillJpa implements INFSkillJpa {
     @Column
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "skill_name")
     private String name;
 
-    @ManyToMany
-    @JoinColumn(name = "category", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private CategoryJpa category;
 
     protected SkillJpa(){

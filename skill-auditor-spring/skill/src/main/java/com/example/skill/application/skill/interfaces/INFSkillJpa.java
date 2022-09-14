@@ -1,4 +1,4 @@
-package com.example.skill.domain.skill.interfaces;
+package com.example.skill.application.skill.interfaces;
 
 import com.example.skill.infrastructure.category.CategoryJpa;
 

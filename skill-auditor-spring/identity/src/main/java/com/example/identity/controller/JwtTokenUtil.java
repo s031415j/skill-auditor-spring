@@ -17,12 +17,9 @@ import java.util.function.Function;
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
-
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
-
     @Value("${jwt.secret}")
     private String secret;
-
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
@@ -69,7 +66,7 @@ public class JwtTokenUtil implements Serializable {
         return getListOfClaimsFromToken(token).get(AppUserDTO.ID).toString();
     }
 
-    public String getJobRoleFromToken(String token) {
+    public String getRoleFromToken(String token) {
         return getListOfClaimsFromToken(token).get(AppUserDTO.JOB_ROLE).toString();
     }
 

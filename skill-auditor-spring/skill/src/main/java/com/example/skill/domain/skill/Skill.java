@@ -40,11 +40,11 @@ public class Skill extends Entity {
         return this.categoryId;
     }
 
-    public void updateName(String name){
+    public void editName(String name){
         this.name = name;
     }
 
-    public void updateCategory(String categoryId){
+    public void editCategory(String categoryId){
         this.categoryId = categoryId;
     }
 

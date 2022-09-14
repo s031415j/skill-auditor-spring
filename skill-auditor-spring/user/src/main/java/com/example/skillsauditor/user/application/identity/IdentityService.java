@@ -12,12 +12,12 @@ import org.springframework.web.client.RestTemplate;
 public class IdentityService implements INFIdentityService {
 
     public String validateAndGetRole(UserDetails userDetails) {
-        String URL = "http://localhost:8082/validateRole";
+        String URL = "http://localhost:8903/validateRole";
         return getResponseFromIdentityContext(userDetails, URL);
     }
 
     public String getID(UserDetails userDetails) {
-        String URL = "http://localhost:8082/id";
+        String URL = "http://localhost:8903/id";
         return getResponseFromIdentityContext(userDetails, URL);
     }
 
