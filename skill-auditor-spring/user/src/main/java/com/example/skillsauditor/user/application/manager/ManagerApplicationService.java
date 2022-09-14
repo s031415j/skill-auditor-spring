@@ -1,6 +1,5 @@
 package com.example.skillsauditor.user.application.manager;
 
-import com.example.skillsauditor.user.application.manager.commands.category.CreateCategoryCommand;
 import com.example.skillsauditor.user.application.manager.commands.skill.EditSkillCommand;
 import com.example.skillsauditor.user.application.manager.events.category.CreateCategoryEvent;
 import com.example.skillsauditor.user.application.manager.events.category.DeleteCategoryEvent;
@@ -34,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -60,13 +60,13 @@ public class ManagerApplicationService implements INFManagerApplicationService {
         categoryEvent.setId(identity.id());
         categoryEvent.setName(createCategoryCommand.getName());
 
-        try{
+        try {
             String eventAsJson = mapper.writeValueAsString(categoryEvent);
             sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
                     environment.getProperty("rabbitmq.createCategoryQueueRoutingKey"),
                     eventAsJson);
 
-        }catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             LOG.error(e.getMessage());
         }
     }
@@ -78,14 +78,33 @@ public class ManagerApplicationService implements INFManagerApplicationService {
         categoryEvent.setId(editCategoryCommand.getCategoryId());
         categoryEvent.setName(editCategoryCommand.getName());
 
+        try {
+            String eventAsJson = mapper.writeValueAsString(categoryEvent);
+            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                    environment.getProperty("rabbitmq.editCategoryQueueRoutingKey"),
+                    eventAsJson);
+
+        } catch (JsonProcessingException e) {
+            LOG.error(e.getMessage());
+        }
+
     }
 
     @Override
     public void deleteCategory(INFDeleteCategoryCommand deleteCategoryCommand) {
 
         DeleteCategoryEvent categoryEvent = new DeleteCategoryEvent();
-        categoryEvent.setId(deleteCategoryCommand.getCategoryId())
-        ;
+        categoryEvent.setId(deleteCategoryCommand.getCategoryId());
+
+        try {
+            String eventAsJson = mapper.writeValueAsString(categoryEvent);
+            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                    environment.getProperty("rabbitmq.deleteCategoryQueueRoutingKey"),
+                    eventAsJson);
+
+        } catch (JsonProcessingException e) {
+            LOG.error(e.getMessage());
+        }
     }
 
     @Override
@@ -98,6 +117,16 @@ public class ManagerApplicationService implements INFManagerApplicationService {
         skillEvent.setName(createSkillCommand.getName());
         skillEvent.setCategoryId(createSkillCommand.getCategoryId());
 
+        try {
+            String eventAsJson = mapper.writeValueAsString(skillEvent);
+            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                    environment.getProperty("rabbitmq.createSkillQueueRoutingKey"),
+                    eventAsJson);
+
+        } catch (JsonProcessingException e) {
+            LOG.error(e.getMessage());
+        }
+
     }
 
     @Override
@@ -106,13 +135,33 @@ public class ManagerApplicationService implements INFManagerApplicationService {
         EditSkillCommand skillEvent = new EditSkillCommand();
         skillEvent.setId(editSkillCommand.getSkillId());
         skillEvent.setName(editSkillCommand.getName());
+
+        try {
+            String eventAsJson = mapper.writeValueAsString(skillEvent);
+            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                    environment.getProperty("rabbitmq.editSkillQueueRoutingKey"),
+                    eventAsJson);
+
+        } catch (JsonProcessingException e) {
+            LOG.error(e.getMessage());
+        }
     }
 
     @Override
     public void deleteSkill(INFDeleteSkillCommand deleteSkillCommand) {
 
-        DeleteSkillEvent event = new DeleteSkillEvent();
-        event.setId(deleteSkillCommand.getSkillId());
+        DeleteSkillEvent skillEvent = new DeleteSkillEvent();
+        skillEvent.setId(deleteSkillCommand.getSkillId());
+
+        try {
+            String eventAsJson = mapper.writeValueAsString(skillEvent);
+            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                    environment.getProperty("rabbitmq.deleteSkillQueueRoutingKey"),
+                    eventAsJson);
+
+        } catch (JsonProcessingException e) {
+            LOG.error(e.getMessage());
+        }
 
     }
 
@@ -122,20 +171,24 @@ public class ManagerApplicationService implements INFManagerApplicationService {
         Optional<ManagerJpa> managerJpa = managerRepository.findById(managerId);
         Optional<StaffJpa> staffJpa = staffRepository.findById(staffId);
 
-        if(managerJpa.isPresent()){
-            Manager manager = managerJpaToManagerConvertor.convert(managerJpa.get());
+        if (managerJpa.isPresent()) {
 
-            ManagerTeam teamMember = ManagerTeam.managerTeamOf(staffId,
-                    managerId, new FullName(staffJpa.get().getFullNameFirstname(), staffJpa.get().getFullNameSurname()));
-            manager.addStaffToTeam(teamMember);
+            if(staffJpa.isPresent()) {
+                Manager manager = managerJpaToManagerConvertor.convert(managerJpa.get());
 
-            ManagerJpa mJpa = managerToManagerJpaConvertor.convert(manager);
-            mJpa.setTeam(managerJpa.get().getTeam());
+                ManagerTeam teamMember = ManagerTeam.managerTeamOf(staffId,
+                        managerId, new FullName(staffJpa.get().getFullNameFirstname(), staffJpa.get().getFullNameSurname()));
 
-            ManagerTeamJpa newTeamMember = new ManagerTeamJpa(teamMember.getId(), mJpa.getId(), staffJpa.get().getFullNameFirstname(), staffJpa.get().getFullNameSurname(), staffJpa.get());
-            mJpa.addTeamMember(newTeamMember);
+                manager.addStaffToTeam(teamMember);
 
-            managerRepository.save(mJpa);
+                ManagerJpa mJpa = managerToManagerJpaConvertor.convert(manager);
+                mJpa.setTeam(managerJpa.get().getTeam());
+
+                ManagerTeamJpa newTeamMember = new ManagerTeamJpa(teamMember.getId(), mJpa.getId(), staffJpa.get().getFullNameFirstname(), staffJpa.get().getFullNameSurname(), staffJpa.get());
+                mJpa.addTeamMember(newTeamMember);
+
+                managerRepository.save(mJpa);
+            }
         }
     }
 }

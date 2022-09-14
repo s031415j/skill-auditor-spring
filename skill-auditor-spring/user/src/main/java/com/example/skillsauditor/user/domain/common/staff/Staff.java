@@ -4,6 +4,8 @@ import com.example.skillsauditor.user.domain.common.Entity;
 import com.example.skillsauditor.user.domain.common.Identity;
 import com.example.skillsauditor.user.domain.common.staff.interfaces.INFEditStaffCommand;
 import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
+import com.example.skillsauditor.user.domain.common.staff.staffSkill.StrengthOfSkill;
+import com.example.skillsauditor.user.domain.common.staff.staffSkill.interfaces.INFEditStaffSkillCommand;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,9 +46,36 @@ public class Staff extends Entity {
         return staffSkill;
     }
 
-    public boolean getStaffSkillsBySkillById(String id) {
+    public void deleteStaffSkill(String staffSkillId){
         for(StaffSkill staffSkill : staffSkills) {
-            if(staffSkill.getSkillId().equals(id)) {
+            if(staffSkill.getSkillId().equals(staffSkillId)){
+                staffSkills.remove(staffSkill);
+                break;
+            }
+        }
+    }
+
+    public void editAStaffSkill(INFEditStaffSkillCommand staffSkillCommand) {
+        for(StaffSkill staffSkill : staffSkills) {
+            if(staffSkill.getSkillId().equals(staffSkill.getSkillId())) {
+                staffSkill.setSkillId(staffSkill.getSkillId());
+                staffSkill.setStrengthOfSkill(StrengthOfSkill.valueOf(staffSkill.getStrengthOfSkill().toString()));
+                staffSkill.setExpiryDate(staffSkill.getExpiryDate());
+                break;
+            }
+        }
+    }
+
+    public void editStaffDetails(INFEditStaffCommand editStaffCommand) {
+        this.fullName = editStaffCommand.getFullName();
+        this.address = editStaffCommand.getAddress();
+        this.jobRole = JobRole.valueOf(editStaffCommand.getJobRole());
+        this.loginDetails = editStaffCommand.getLoginDetails();
+    }
+
+    public boolean getStaffSkillById(String id) {
+        for(StaffSkill staffSkill : staffSkills) {
+            if(staffSkill.getStaffId().equals(id)) {
                 return true;
             }
         }
@@ -59,13 +88,6 @@ public class Staff extends Entity {
 
     public Identity id(){
         return id;
-    }
-
-    public void editStaffDetails(INFEditStaffCommand editStaffCommand) {
-        this.fullName = editStaffCommand.getFullName();
-        this.address = editStaffCommand.getAddress();
-        this.jobRole = JobRole.valueOf(editStaffCommand.getJobRole());
-        this.loginDetails = editStaffCommand.getLoginDetails();
     }
 
 }

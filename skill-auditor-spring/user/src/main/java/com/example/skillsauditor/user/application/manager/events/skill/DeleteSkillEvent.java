@@ -9,4 +9,5 @@ import lombok.ToString;
 public class DeleteSkillEvent {
 
     private String id;
+
 }
