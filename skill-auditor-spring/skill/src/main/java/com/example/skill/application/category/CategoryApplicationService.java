@@ -5,9 +5,11 @@ import com.example.skill.application.category.events.DeleteCategoryEvent;
 import com.example.skill.application.category.events.EditCategoryEvent;
 import com.example.skill.application.category.interfaces.INFCategoryRepository;
 import com.example.skill.application.category.interfaces.convertors.INFCategoryToCategoryJpaConvertor;
+import com.example.skill.application.skill.interfaces.INFSkillRepository;
 import com.example.skill.domain.common.Identity;
 import com.example.skill.domain.skill.Category;
 import com.example.skill.infrastructure.category.CategoryJpa;
+import com.example.skill.infrastructure.skill.SkillJpa;
 import com.example.skill.ui.category.INFCategoryApplicationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -24,6 +28,7 @@ import java.util.Optional;
 public class CategoryApplicationService implements INFCategoryApplicationService {
 
     private INFCategoryRepository repository;
+    private INFSkillRepository skillRepository;
     private INFCategoryToCategoryJpaConvertor categoryToCategoryJpaConvertor;
     private final Logger LOG = LoggerFactory.getLogger(getClass());
     private ObjectMapper mapper;
@@ -80,13 +85,16 @@ public class CategoryApplicationService implements INFCategoryApplicationService
 
             Optional<CategoryJpa> categoryJpa = repository.findById(deleteCategoryEvent.getId());
 
-            if (categoryJpa.isPresent()) {
-                repository.delete(categoryJpa.get());
-                LOG.info("Category was successfully deleted");
-            } else {
-                LOG.info("Category does not exist");
-            }
+            List<SkillJpa> skillJpaList = skillRepository.findByCategoryId(deleteCategoryEvent.getId());
 
+            if(skillJpaList.size() > 0){
+                if (categoryJpa.isPresent()) {
+                    repository.delete(categoryJpa.get());
+                    LOG.info("Category was successfully deleted");
+                } else {
+                    LOG.info("Category does not exist");
+                }
+            }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

@@ -36,7 +36,7 @@ public class SkillController {
     public SkillDTOList getSkillsByCategoryId(@PathVariable(name = "category_id") String categoryId){
         SkillDTOList result = queryHandler.findByCategoryId(categoryId);
 
-        if(!result.getSkills().isEmpty()){
+        if(result.getSkills().isEmpty()){
             return result;
         }
         else{

@@ -1,5 +1,6 @@
 package com.example.skillsauditor.user.application.manager;
 
+import com.example.skillsauditor.user.application.manager.DTO.SkillDTOList;
 import com.example.skillsauditor.user.application.manager.commands.skill.EditSkillCommand;
 import com.example.skillsauditor.user.application.manager.events.category.CreateCategoryEvent;
 import com.example.skillsauditor.user.application.manager.events.category.DeleteCategoryEvent;
@@ -33,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -47,6 +49,8 @@ public class ManagerApplicationService implements INFManagerApplicationService {
     private INFManagerToManagerJpaConvertor managerToManagerJpaConvertor;
     private INFStaffRepository staffRepository;
     private final Logger LOG = LoggerFactory.getLogger(getClass());
+
+    private RestTemplate restTemplate;
 
     private Environment environment;
     private RabbitTemplate sender;
@@ -173,7 +177,7 @@ public class ManagerApplicationService implements INFManagerApplicationService {
 
         if (managerJpa.isPresent()) {
 
-            if(staffJpa.isPresent()) {
+            if (staffJpa.isPresent()) {
                 Manager manager = managerJpaToManagerConvertor.convert(managerJpa.get());
 
                 ManagerTeam teamMember = ManagerTeam.managerTeamOf(staffId,
