@@ -37,7 +37,7 @@ public class Category extends Entity {
     }
 
     public Identity id(){
-        return this.id();
+        return id;
     }
 
     public String getName(){

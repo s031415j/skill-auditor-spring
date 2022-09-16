@@ -7,7 +7,7 @@ import com.example.skill.application.category.events.EditCategoryEvent;
 
 public interface INFCategoryApplicationService {
 
-    void createNewCategoryListener(CreateCategoryEvent event);
-    void editCategoryListener(EditCategoryEvent event);
-    void deleteCategoryListener(DeleteCategoryEvent event);
+    void createCategoryListener(String event);
+    void editCategoryListener(String event);
+    void deleteCategoryListener(String event);
 }

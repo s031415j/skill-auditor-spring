@@ -9,15 +9,14 @@ import com.example.skill.domain.common.Identity;
 import com.example.skill.domain.skill.Category;
 import com.example.skill.infrastructure.category.CategoryJpa;
 import com.example.skill.ui.category.INFCategoryApplicationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
-
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -26,54 +25,74 @@ public class CategoryApplicationService implements INFCategoryApplicationService
 
     private INFCategoryRepository repository;
     private INFCategoryToCategoryJpaConvertor categoryToCategoryJpaConvertor;
-
     private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private ObjectMapper mapper;
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void createNewCategoryListener(CreateCategoryEvent event) {
+    @RabbitListener(queues = "createCategoryQueue")
+    @RabbitHandler
+    public void createCategoryListener(String event) {
 
-        Optional<CategoryJpa> categoryJpa = repository.findByName(event.getName());
-        if(categoryJpa.isEmpty()){
-            createNewCategory(event);
+        try {
+            CreateCategoryEvent createCategoryEvent = mapper.readValue(event, CreateCategoryEvent.class);
 
-        }
-        else{
-            LOG.info("Category already exists");
+            Optional<CategoryJpa> categoryJpa = repository.findByName(createCategoryEvent.getName());
+
+            if (categoryJpa.isEmpty()) {
+                createNewCategory(createCategoryEvent);
+            } else {
+                LOG.info("Category already exists");
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void editCategoryListener(EditCategoryEvent event) {
-        Optional<CategoryJpa> categoryJpa = repository.findById(event.getId());
 
-        if(categoryJpa.isPresent()){
-            editCategory(event);
+    @RabbitListener(queues = "editCategoryQueue")
+    @RabbitHandler
+    public void editCategoryListener(String event) {
 
-        }
-        else{
-            LOG.info("Category does not exist");
-        }
+        try {
+            EditCategoryEvent editCategoryEvent = mapper.readValue(event, EditCategoryEvent.class);
 
-    }
+            Optional<CategoryJpa> categoryJpa = repository.findById(editCategoryEvent.getId());
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void deleteCategoryListener(DeleteCategoryEvent event) {
-        Optional<CategoryJpa> categoryJpa = repository.findById(event.getId());
+            if (categoryJpa.isPresent()) {
+                editCategory(editCategoryEvent);
 
-        if(categoryJpa.isPresent()){
-            repository.delete(categoryJpa.get());
-            LOG.info("Category was successfully deleted");
-        }
-        else{
-            LOG.info("Category does not exist");
+            } else {
+                LOG.info("Category does not exist");
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
 
     }
 
-    public void createNewCategory(CreateCategoryEvent event){
+    @RabbitListener(queues = "deleteCategoryQueue")
+    @RabbitHandler
+    public void deleteCategoryListener(String event) {
+
+        try {
+            DeleteCategoryEvent deleteCategoryEvent = mapper.readValue(event, DeleteCategoryEvent.class);
+
+            Optional<CategoryJpa> categoryJpa = repository.findById(deleteCategoryEvent.getId());
+
+            if (categoryJpa.isPresent()) {
+                repository.delete(categoryJpa.get());
+                LOG.info("Category was successfully deleted");
+            } else {
+                LOG.info("Category does not exist");
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createNewCategory(CreateCategoryEvent event) {
 
         Identity identity = new Identity(event.getId());
         Category category = Category.categoryOf(identity, event.getName());
@@ -81,7 +100,7 @@ public class CategoryApplicationService implements INFCategoryApplicationService
         LOG.info("New category created");
     }
 
-    public void editCategory(EditCategoryEvent event){
+    public void editCategory(EditCategoryEvent event) {
 
         Identity identity = new Identity(event.getId());
         Category category = Category.categoryOf(identity, event.getName());
