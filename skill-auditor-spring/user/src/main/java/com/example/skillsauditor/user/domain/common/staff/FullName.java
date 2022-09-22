@@ -12,6 +12,5 @@ public class FullName extends ValueObject {
     private String firstName;
     private String surname;
 
-    public FullName() {
-    }
+
 }

@@ -22,6 +22,5 @@ public class EditStaffCommand implements INFEditStaffCommand {
     private LoginDetails loginDetails;
     private String jobRole;
     private Address address;
-    private String manager;
 
 }

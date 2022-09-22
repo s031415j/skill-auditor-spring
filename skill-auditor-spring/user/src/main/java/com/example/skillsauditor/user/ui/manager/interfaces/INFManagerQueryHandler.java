@@ -8,11 +8,12 @@ import java.util.List;
 
 public interface INFManagerQueryHandler {
 
+    StaffSkillDTOList findSkillsByCategory(String categoryId);
+
+    List<?> findAllWithExpiredSkills();
     List<ManagerTeam> findTeamMembersByManagerId(String managerId);
 
     List<TeamMemberDTO> findTeamMembersBySkillId(String managerId, String skillId);
 
-    StaffSkillDTOList findSkillsByCategory(String categoryId);
 
-    List<?> findAllWithExpiredSkills();
 }

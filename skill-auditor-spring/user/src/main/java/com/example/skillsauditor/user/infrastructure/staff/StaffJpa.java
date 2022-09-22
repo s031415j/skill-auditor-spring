@@ -35,9 +35,6 @@ public class StaffJpa implements INFStaffJpa {
     @Column(name="job_role")
     private String jobRole;
 
-    @Column(name="manager")
-    private String manager;
-
     @Column(name="address_house_name_number")
     private String addressHouseNameNumber;
 
@@ -87,7 +84,7 @@ public class StaffJpa implements INFStaffJpa {
 
     @Override
     public List<StaffSkillJpa> getStaffSkills() {
-        return null;
+        return staffSkills;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.example.skill.application.skill;
 
+import com.example.skill.application.category.events.DeleteCategoryEvent;
 import com.example.skill.application.category.interfaces.INFCategoryRepository;
 import com.example.skill.application.skill.events.CreateSkillEvent;
-import com.example.skill.application.skill.events.DeleteSkillEvent;
 import com.example.skill.application.skill.events.EditSkillEvent;
 import com.example.skill.application.skill.interfaces.INFSkillJpaToSkillConvertor;
 import com.example.skill.application.skill.interfaces.INFSkillRepository;
@@ -12,14 +12,15 @@ import com.example.skill.domain.skill.Skill;
 import com.example.skill.infrastructure.category.CategoryJpa;
 import com.example.skill.infrastructure.skill.SkillJpa;
 import com.example.skill.ui.skill.interfaces.INFSkillApplicationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
+
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -30,66 +31,84 @@ public class SkillApplicationService implements INFSkillApplicationService {
     private INFCategoryRepository categoryRepository;
     private INFSkillToSkillJpaConvertor skillToSkillJpaConvertor;
     private INFSkillJpaToSkillConvertor skillJpaToSkillConvertor;
-
     private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private ObjectMapper mapper;
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void createNewSkillListener(CreateSkillEvent event) {
+    @RabbitListener(queues = "createSkillQueue")
+    @RabbitHandler
+    public void createSkillListener(String event) {
 
-        Optional<SkillJpa> skillJpa = skillRepository.findByName(event.getName());
+        try {
+            CreateSkillEvent createSkillEvent = mapper.readValue(event, CreateSkillEvent.class);
 
-        if (skillJpa.isPresent()) {
+            Optional<SkillJpa> skillJpa = skillRepository.findByName(createSkillEvent.getName());
 
-            LOG.info("Skill already exists");
+            if (skillJpa.isPresent()) {
+                LOG.info("Skill already exists");
 
-        }else{
-            checkCategory(event);
+            } else {
+                checkCategory(createSkillEvent);
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void editSkillListener(EditSkillEvent event) {
+    @RabbitListener(queues = "editSkillQueue")
+    @RabbitHandler
+    public void editSkillListener(String event) {
 
-        Optional<SkillJpa> skillJpa = skillRepository.findById(event.getId());
+        try {
+            EditSkillEvent editSkillEvent = mapper.readValue(event, EditSkillEvent.class);
 
-        if(skillJpa.isPresent()){
-            editSkill(event, skillJpa);
+            Optional<SkillJpa> skillJpa = skillRepository.findById(editSkillEvent.getId());
+
+            if (skillJpa.isPresent()) {
+                editSkill(editSkillEvent, skillJpa);
+            } else {
+                LOG.info("Skill does not exist");
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
-        else{
-            LOG.info("Skill does not exist");
-        }
+
 
     }
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void deleteSkillListener(DeleteSkillEvent event) {
-        Optional<SkillJpa> skillJpa = skillRepository.findById(event.getId());
+    @RabbitListener(queues = "deleteSkillQueue")
+    @RabbitHandler
+    public void deleteSkillListener(String event) {
 
-        if(skillJpa.isPresent()){
-            skillRepository.delete(skillJpa.get());
-            LOG.info("Skill was successfully deleted");
-        }
-        else{
-            LOG.info("Skill does not exist");
-        }
+        try {
+            DeleteCategoryEvent deleteCategoryEvent = mapper.readValue(event, DeleteCategoryEvent.class);
 
+            Optional<SkillJpa> skillJpa = skillRepository.findById(deleteCategoryEvent.getId());
+
+                 if (skillJpa.isPresent()) {
+                    skillRepository.delete(skillJpa.get());
+                    LOG.info("Skill was successfully deleted");
+                } else {
+                    LOG.info("Skill does not exist");
+                }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void checkCategory(CreateSkillEvent event) {
         Optional<CategoryJpa> category = categoryRepository.findById(event.getCategoryId());
 
-        if(category.isPresent()){
+        if (category.isPresent()) {
             createNewSkill(event, category);
-        }
-        else{
+        } else {
             LOG.error("Invalid category");
         }
     }
 
-    private void createNewSkill(CreateSkillEvent event, Optional<CategoryJpa> category){
+    private void createNewSkill(CreateSkillEvent event, Optional<CategoryJpa> category) {
 
         Identity identity = new Identity(event.getId());
 
@@ -98,7 +117,7 @@ public class SkillApplicationService implements INFSkillApplicationService {
         LOG.info("New skill added successfully");
     }
 
-    private void editSkill(EditSkillEvent event, Optional<SkillJpa> skillJpa){
+    private void editSkill(EditSkillEvent event, Optional<SkillJpa> skillJpa) {
 
         Skill skill = skillJpaToSkillConvertor.convert(skillJpa.get());
         skill.editName(event.getName());

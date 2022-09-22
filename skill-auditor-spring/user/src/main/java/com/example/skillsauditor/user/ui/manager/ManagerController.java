@@ -8,7 +8,6 @@ import com.example.skillsauditor.user.application.manager.commands.skill.DeleteS
 import com.example.skillsauditor.user.application.manager.commands.skill.EditSkillCommand;
 import com.example.skillsauditor.user.application.staff.staffSkill.DTO.StaffSkillDTOList;
 import com.example.skillsauditor.user.domain.common.UserDetails;
-import com.example.skillsauditor.user.domain.manager.interfaces.commands.category.INFCreateCategoryCommand;
 import com.example.skillsauditor.user.ui.identity.interfaces.INFIdentityService;
 import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerApplicationService;
 import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerQueryHandler;
@@ -142,7 +141,7 @@ public class ManagerController {
         }
     }
 
-    // edit category
+
     @PutMapping("/editCategory")
     public void editCategory(@RequestBody EditCategoryCommand editCategoryCommand) {
         UserDetails userDetails = UserDetails.userDetailsOf(editCategoryCommand.getId(), editCategoryCommand.getToken(), editCategoryCommand.getUsername());
@@ -154,7 +153,6 @@ public class ManagerController {
         }
     }
 
-    // delete category
     @DeleteMapping("/deleteCategory")
     public void deleteCategory(@RequestBody DeleteCategoryCommand deleteCategoryCommand) {
         UserDetails userDetails = UserDetails.userDetailsOf(deleteCategoryCommand.getId(), deleteCategoryCommand.getToken(), deleteCategoryCommand.getUsername());

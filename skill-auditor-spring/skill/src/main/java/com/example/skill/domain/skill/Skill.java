@@ -29,7 +29,7 @@ public class Skill extends Entity {
     }
 
     public Identity id(){
-        return this.id();
+        return id;
     }
 
     public String getName(){

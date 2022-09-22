@@ -90,4 +90,12 @@ public class Staff extends Entity {
         return id;
     }
 
+    public boolean hasSkill(String skillId) {
+        for(StaffSkill staffSkill : staffSkills){
+            if(staffSkill.getSkillId().equals(skillId)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -10,10 +10,13 @@ import com.example.skillsauditor.user.application.manager.events.skill.DeleteSki
 import com.example.skillsauditor.user.application.manager.interfaces.INFManagerJpaToManagerConvertor;
 import com.example.skillsauditor.user.application.manager.interfaces.INFManagerRepository;
 import com.example.skillsauditor.user.application.manager.interfaces.INFManagerToManagerJpaConvertor;
+import com.example.skillsauditor.user.application.staff.interfaces.INFStaffJpaToStaffConvertor;
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffRepository;
 import com.example.skillsauditor.user.domain.common.Identity;
 import com.example.skillsauditor.user.domain.common.UniqueIDFactory;
 import com.example.skillsauditor.user.domain.common.staff.FullName;
+import com.example.skillsauditor.user.domain.common.staff.Staff;
+import com.example.skillsauditor.user.domain.common.staff.interfaces.INFStaffJpa;
 import com.example.skillsauditor.user.domain.manager.Manager;
 import com.example.skillsauditor.user.domain.manager.ManagerTeam;
 import com.example.skillsauditor.user.domain.manager.interfaces.commands.category.INFCreateCategoryCommand;
@@ -26,6 +29,7 @@ import com.example.skillsauditor.user.infrastructure.manager.ManagerJpa;
 import com.example.skillsauditor.user.infrastructure.manager.ManagerTeamJpa;
 import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
 import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerApplicationService;
+import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerQueryHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -37,6 +41,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,14 +52,15 @@ public class ManagerApplicationService implements INFManagerApplicationService {
     private INFManagerRepository managerRepository;
     private INFManagerJpaToManagerConvertor managerJpaToManagerConvertor;
     private INFManagerToManagerJpaConvertor managerToManagerJpaConvertor;
+
+    private INFStaffJpaToStaffConvertor staffJpaToStaffConvertor;
     private INFStaffRepository staffRepository;
     private final Logger LOG = LoggerFactory.getLogger(getClass());
-
-    private RestTemplate restTemplate;
 
     private Environment environment;
     private RabbitTemplate sender;
     private ObjectMapper mapper;
+
 
     @Override
     public void createCategory(INFCreateCategoryCommand createCategoryCommand) {
@@ -154,19 +160,41 @@ public class ManagerApplicationService implements INFManagerApplicationService {
     @Override
     public void deleteSkill(INFDeleteSkillCommand deleteSkillCommand) {
 
-        DeleteSkillEvent skillEvent = new DeleteSkillEvent();
-        skillEvent.setId(deleteSkillCommand.getSkillId());
+        boolean inUse = staffHasSkills(deleteSkillCommand);
 
-        try {
-            String eventAsJson = mapper.writeValueAsString(skillEvent);
-            sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
-                    environment.getProperty("rabbitmq.deleteSkillQueueRoutingKey"),
-                    eventAsJson);
+        if(inUse){
+            LOG.info("Skill in use, can not be deleted");
+        }
+        else{
+            DeleteSkillEvent skillEvent = new DeleteSkillEvent();
+            skillEvent.setId(deleteSkillCommand.getSkillId());
 
-        } catch (JsonProcessingException e) {
-            LOG.error(e.getMessage());
+            try {
+                String eventAsJson = mapper.writeValueAsString(skillEvent);
+                sender.convertAndSend(environment.getProperty("rabbitmq.exchange"),
+                        environment.getProperty("rabbitmq.deleteSkillQueueRoutingKey"),
+                        eventAsJson);
+
+            } catch (JsonProcessingException e) {
+                LOG.error(e.getMessage());
+            }
         }
 
+    }
+
+    private boolean staffHasSkills(INFDeleteSkillCommand deleteSkillCommand) {
+        Iterable<StaffJpa> staffWithSkills = staffRepository.findAll();
+        Staff staff;
+
+        if(staffWithSkills != null){
+            for(StaffJpa staffJpa : staffWithSkills) {
+                staff = staffJpaToStaffConvertor.convert(staffJpa);
+                if(staff.hasSkill(deleteSkillCommand.getSkillId())){
+                   return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

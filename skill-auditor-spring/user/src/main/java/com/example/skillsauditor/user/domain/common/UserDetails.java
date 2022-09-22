@@ -15,9 +15,6 @@ public class UserDetails {
     private String username;
     private String token;
 
-    public UserDetails(){
-
-    }
 
     public static UserDetails userDetailsOf(String id, String username, String token){
         return new UserDetails(id, username, token);

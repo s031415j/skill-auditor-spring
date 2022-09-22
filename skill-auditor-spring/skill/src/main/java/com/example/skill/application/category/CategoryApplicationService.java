@@ -87,7 +87,7 @@ public class CategoryApplicationService implements INFCategoryApplicationService
 
             List<SkillJpa> skillJpaList = skillRepository.findByCategoryId(deleteCategoryEvent.getId());
 
-            if(skillJpaList.size() > 0){
+            if(skillJpaList.size() == 0){
                 if (categoryJpa.isPresent()) {
                     repository.delete(categoryJpa.get());
                     LOG.info("Category was successfully deleted");

@@ -1,4 +1,4 @@
-package com.example.skillsauditor.user.domain.manager.convertors;
+package com.example.skillsauditor.user.domain.manager;
 
 import com.example.skillsauditor.user.application.manager.interfaces.INFManagerJpaToManagerConvertor;
 import com.example.skillsauditor.user.domain.common.Identity;
