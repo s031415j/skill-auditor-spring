@@ -13,6 +13,5 @@ public class SkillDTO {
 
     private String id;
     private String name;
-//    private CategoryDTO category;
 
 }

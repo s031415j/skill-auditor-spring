@@ -1,8 +1,7 @@
 package com.example.skillsauditor.user.domain.manager;
 
-import antlr.StringUtils;
 import com.example.skillsauditor.user.domain.common.IdentifiedValueObject;
-import com.example.skillsauditor.user.domain.common.staff.FullName;
+import com.example.skillsauditor.user.domain.common.FullName;
 import lombok.*;
 
 @AllArgsConstructor

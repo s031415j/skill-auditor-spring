@@ -1,6 +1,5 @@
 package com.example.skillsauditor.user.application.manager;
 
-import com.example.skillsauditor.user.application.manager.DTO.SkillDTOList;
 import com.example.skillsauditor.user.application.manager.commands.skill.EditSkillCommand;
 import com.example.skillsauditor.user.application.manager.events.category.CreateCategoryEvent;
 import com.example.skillsauditor.user.application.manager.events.category.DeleteCategoryEvent;
@@ -14,9 +13,8 @@ import com.example.skillsauditor.user.application.staff.interfaces.INFStaffJpaTo
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffRepository;
 import com.example.skillsauditor.user.domain.common.Identity;
 import com.example.skillsauditor.user.domain.common.UniqueIDFactory;
-import com.example.skillsauditor.user.domain.common.staff.FullName;
-import com.example.skillsauditor.user.domain.common.staff.Staff;
-import com.example.skillsauditor.user.domain.common.staff.interfaces.INFStaffJpa;
+import com.example.skillsauditor.user.domain.common.FullName;
+import com.example.skillsauditor.user.domain.common.Staff;
 import com.example.skillsauditor.user.domain.manager.Manager;
 import com.example.skillsauditor.user.domain.manager.ManagerTeam;
 import com.example.skillsauditor.user.domain.manager.interfaces.commands.category.INFCreateCategoryCommand;
@@ -29,7 +27,6 @@ import com.example.skillsauditor.user.infrastructure.manager.ManagerJpa;
 import com.example.skillsauditor.user.infrastructure.manager.ManagerTeamJpa;
 import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
 import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerApplicationService;
-import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerQueryHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -38,10 +35,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service

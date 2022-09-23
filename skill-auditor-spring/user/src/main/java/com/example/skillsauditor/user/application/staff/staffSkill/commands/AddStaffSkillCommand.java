@@ -1,8 +1,7 @@
 package com.example.skillsauditor.user.application.staff.staffSkill.commands;
 
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.ExpiryDate;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.StrengthOfSkill;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.interfaces.INFAddStaffSkillCommand;
+import com.example.skillsauditor.user.domain.common.staffSkill.ExpiryDate;
+import com.example.skillsauditor.user.domain.common.staffSkill.interfaces.INFAddStaffSkillCommand;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

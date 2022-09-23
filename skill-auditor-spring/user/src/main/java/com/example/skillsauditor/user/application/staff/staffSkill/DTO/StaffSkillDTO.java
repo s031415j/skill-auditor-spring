@@ -1,11 +1,8 @@
 package com.example.skillsauditor.user.application.staff.staffSkill.DTO;
 
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.ExpiryDate;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.StrengthOfSkill;
+import com.example.skillsauditor.user.domain.common.staffSkill.ExpiryDate;
+import com.example.skillsauditor.user.domain.common.staffSkill.StrengthOfSkill;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @EqualsAndHashCode

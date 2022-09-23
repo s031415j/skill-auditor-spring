@@ -6,8 +6,8 @@ import com.example.skillsauditor.user.application.manager.interfaces.INFManagerR
 import com.example.skillsauditor.user.application.staff.DTO.StaffDTO;
 import com.example.skillsauditor.user.application.staff.staffSkill.DTO.StaffSkillDTO;
 import com.example.skillsauditor.user.application.staff.staffSkill.DTO.StaffSkillDTOList;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.ExpiryDate;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.StrengthOfSkill;
+import com.example.skillsauditor.user.domain.common.staffSkill.ExpiryDate;
+import com.example.skillsauditor.user.domain.common.staffSkill.StrengthOfSkill;
 import com.example.skillsauditor.user.domain.manager.Manager;
 import com.example.skillsauditor.user.domain.manager.ManagerTeam;
 import com.example.skillsauditor.user.infrastructure.manager.ManagerJpa;

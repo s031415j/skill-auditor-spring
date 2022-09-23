@@ -3,13 +3,13 @@ package com.example.skillsauditor.user.application.staff;
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffJpaToStaffConvertor;
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffRepository;
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffToStaffJpaConvertor;
-import com.example.skillsauditor.user.domain.common.staff.Staff;
-import com.example.skillsauditor.user.domain.common.staff.interfaces.INFEditStaffCommand;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.StaffSkill;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.StrengthOfSkill;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.interfaces.INFAddStaffSkillCommand;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.interfaces.INFDeleteStaffSkillCommand;
-import com.example.skillsauditor.user.domain.common.staff.staffSkill.interfaces.INFEditStaffSkillCommand;
+import com.example.skillsauditor.user.domain.common.Staff;
+import com.example.skillsauditor.user.domain.common.interfaces.INFEditStaffCommand;
+import com.example.skillsauditor.user.domain.common.staffSkill.StaffSkill;
+import com.example.skillsauditor.user.domain.common.staffSkill.StrengthOfSkill;
+import com.example.skillsauditor.user.domain.common.staffSkill.interfaces.INFAddStaffSkillCommand;
+import com.example.skillsauditor.user.domain.common.staffSkill.interfaces.INFDeleteStaffSkillCommand;
+import com.example.skillsauditor.user.domain.common.staffSkill.interfaces.INFEditStaffSkillCommand;
 import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
 import com.example.skillsauditor.user.ui.staff.interfaces.INFStaffApplicationService;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,6 @@ public class StaffApplicationService implements INFStaffApplicationService {
     public void deleteStaffSkill(INFDeleteStaffSkillCommand deleteStaffSkillCommand) {
         Optional<StaffJpa> staffJpa = staffRepository.findById(deleteStaffSkillCommand.getStaffId());
 
-        //validate
         if(staffJpa.isPresent()) {
             Staff staff = staffJpaToStaffConvertor.convert(staffJpa.get());
             staff.deleteStaffSkill(deleteStaffSkillCommand.getSkillId());

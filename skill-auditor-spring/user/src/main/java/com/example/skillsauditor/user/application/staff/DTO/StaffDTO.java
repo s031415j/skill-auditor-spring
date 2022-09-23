@@ -1,7 +1,7 @@
 package com.example.skillsauditor.user.application.staff.DTO;
 
 import com.example.skillsauditor.user.application.staff.staffSkill.DTO.StaffSkillDTO;
-import com.example.skillsauditor.user.domain.common.staff.JobRole;
+import com.example.skillsauditor.user.domain.common.JobRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

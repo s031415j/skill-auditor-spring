@@ -2,12 +2,10 @@ package com.example.skillsauditor.user.domain.manager;
 
 import com.example.skillsauditor.user.application.manager.interfaces.INFManagerJpaToManagerConvertor;
 import com.example.skillsauditor.user.domain.common.Identity;
-import com.example.skillsauditor.user.domain.common.staff.Address;
-import com.example.skillsauditor.user.domain.common.staff.FullName;
-import com.example.skillsauditor.user.domain.common.staff.JobRole;
-import com.example.skillsauditor.user.domain.common.staff.LoginDetails;
-import com.example.skillsauditor.user.domain.manager.Manager;
-import com.example.skillsauditor.user.domain.manager.ManagerTeam;
+import com.example.skillsauditor.user.domain.common.Address;
+import com.example.skillsauditor.user.domain.common.FullName;
+import com.example.skillsauditor.user.domain.common.JobRole;
+import com.example.skillsauditor.user.domain.common.LoginDetails;
 import com.example.skillsauditor.user.infrastructure.manager.ManagerJpa;
 import com.example.skillsauditor.user.infrastructure.manager.ManagerTeamJpa;
 import org.springframework.stereotype.Component;

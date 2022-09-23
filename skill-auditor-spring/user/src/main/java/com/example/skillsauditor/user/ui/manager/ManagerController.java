@@ -31,10 +31,10 @@ public class ManagerController {
     public List<?> getTeam(@PathVariable(value = "manager_id") String managerId, @RequestBody UserDetails userDetails) {
 
         if (identityService.isAdmin(userDetails)) {
-            List<?> result = queryHandler.findTeamMembersByManagerId(managerId);
+            List<?> teamMember = queryHandler.findTeamMembersByManagerId(managerId);
 
-            if (!result.isEmpty()) {
-                return result;
+            if (!teamMember.isEmpty()) {
+                return teamMember;
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Manager not found");
             }

@@ -1,7 +1,6 @@
 package com.example.skillsauditor.user.domain.manager;
 
-import com.example.skillsauditor.user.domain.common.Identity;
-import com.example.skillsauditor.user.domain.common.staff.*;
+import com.example.skillsauditor.user.domain.common.*;
 
 import java.util.ArrayList;
 import java.util.List;

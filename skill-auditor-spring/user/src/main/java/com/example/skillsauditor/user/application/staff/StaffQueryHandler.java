@@ -2,7 +2,7 @@ package com.example.skillsauditor.user.application.staff;
 
 import com.example.skillsauditor.user.application.staff.DTO.StaffDTO;
 import com.example.skillsauditor.user.application.staff.interfaces.INFStaffRepository;
-import com.example.skillsauditor.user.domain.common.staff.convertors.StaffJpaToDTOConvertor;
+import com.example.skillsauditor.user.domain.common.convertors.StaffJpaToDTOConvertor;
 import com.example.skillsauditor.user.infrastructure.staff.StaffJpa;
 import com.example.skillsauditor.user.ui.staff.interfaces.INFStaffQueryHandler;
 import lombok.AllArgsConstructor;
@@ -18,13 +18,13 @@ public class StaffQueryHandler implements INFStaffQueryHandler {
 
     @Override
     public List<StaffDTO> findAllStaffWithExpiredSkills() {
-        Iterable<StaffJpa> result = repository.findAllStaffWithExpiredSkills();
+        Iterable<StaffJpa> staff = repository.findAllStaffWithExpiredSkills();
 
-        if(result == null){
+        if(staff == null){
             return new ArrayList<>();
         }
         else{
-            return StaffJpaToDTOConvertor.convertStaffJpaListToDTO(result);
+            return StaffJpaToDTOConvertor.convertStaffJpaListToDTO(staff);
         }
     }
 }
