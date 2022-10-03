@@ -32,11 +32,11 @@ public class SkillController {
         }
     }
 
-    @GetMapping("findSkillsByCategory/{category_id}")
+    @GetMapping("/findSkillsByCategory/{category_id}")
     public SkillDTOList getSkillsByCategoryId(@PathVariable(name = "category_id") String categoryId){
         SkillDTOList result = queryHandler.findByCategoryId(categoryId);
 
-        if(result.getSkills().isEmpty()){
+        if(!result.getSkills().isEmpty()){
             return result;
         }
         else{

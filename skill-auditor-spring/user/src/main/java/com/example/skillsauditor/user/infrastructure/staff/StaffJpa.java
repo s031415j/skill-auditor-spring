@@ -54,7 +54,7 @@ public class StaffJpa implements INFStaffJpa {
 
    }
 
-    protected StaffJpa(String id, String fullName_firstname,
+    public StaffJpa(String id, String fullName_firstname,
                     String fullName_surname, String loginDetails_username,
                     String loginDetails_password, String job_role,
                     String address_houseNameNumber, String address_street,

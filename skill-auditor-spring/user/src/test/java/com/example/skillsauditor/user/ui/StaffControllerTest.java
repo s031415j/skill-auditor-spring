@@ -22,7 +22,6 @@ public class StaffControllerTest {
     private INFStaffApplicationService applicationService;
     private INFIdentityService identityService;
     Resource userDetails;
-
     private MockMvc mockMvc;
 
     @BeforeEach
@@ -38,7 +37,6 @@ public class StaffControllerTest {
     @Test
     public void updateStaffDetails_When_User_Is_Not_Admin_Should_Throw_Unauthorized() throws Exception {
         Mockito.when(identityService.isAdmin(Mockito.any())).thenReturn(false);
-
 
         mockMvc.perform(MockMvcRequestBuilders.put("/staff/editDetails")
                         .header("Content-Type", "application/json;charset=utf-8")

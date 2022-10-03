@@ -14,4 +14,7 @@ public class SkillDTO {
     private String name;
     private CategoryDTO category;
 
+    public SkillDTO() {
+
+    }
 }

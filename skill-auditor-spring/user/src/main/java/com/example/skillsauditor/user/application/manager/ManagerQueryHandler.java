@@ -16,11 +16,16 @@ import com.example.skillsauditor.user.infrastructure.staff.StaffSkillJpa;
 import com.example.skillsauditor.user.ui.manager.interfaces.INFManagerQueryHandler;
 import com.example.skillsauditor.user.ui.staff.interfaces.INFStaffQueryHandler;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
@@ -29,13 +34,11 @@ public class ManagerQueryHandler implements INFManagerQueryHandler {
     private INFStaffQueryHandler queryHandler;
     private INFManagerRepository managerRepository;
     private INFManagerJpaToManagerConvertor managerJpaToManagerConvertor;
+    private RestTemplate restTemplate;
 
+    private RabbitTemplate sender;
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-
-    @Override
-    public StaffSkillDTOList findSkillsByCategory(String categoryId) {
-        return null;
-    }
 
     @Override
     public List<?> findAllWithExpiredSkills() {
@@ -91,7 +94,10 @@ public class ManagerQueryHandler implements INFManagerQueryHandler {
         return team;
     }
 
-
+    @Override
+    public StaffSkillDTOList findSkillsByCategory(String categoryId) {
+        return null;
+    }
 
     private List<StaffSkillDTO> convertStaffSkillsToDTO(ManagerTeamJpa mtj) {
 

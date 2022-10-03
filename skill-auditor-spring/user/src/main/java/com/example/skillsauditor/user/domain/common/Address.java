@@ -59,7 +59,7 @@ public class Address extends ValueObject {
     }
 
     public String getTown(){
-        return street;
+        return town;
     }
 
     public String getPostcode(){

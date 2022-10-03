@@ -39,13 +39,15 @@ public class SkillQueryHandler implements INFSkillQueryHandler {
     @Override
     public SkillDTOList findByCategoryId(String categoryId) {
         List<SkillJpa> result = repository.findByCategoryId(categoryId);
-        SkillDTOList skillDTOList = new SkillDTOList();
+        SkillDTOList skillDTOList;
 
         if(!result.isEmpty()){
             skillDTOList = convertSkillListToDTO(result, categoryId);
             return skillDTOList;
         }
-        return skillDTOList;
+        else {
+            throw new IllegalArgumentException("Skill id does not exist");
+        }
     }
 
 
